@@ -6,26 +6,33 @@
  */
 
 #include "ROM.h"
+
+#include <iostream>
 #include <fstream>
-#include <iterator>
-#include <algorithm>
+#include <cmath>
 
 namespace domahony {
 namespace emu {
 
-using std::fstream;
+ROM::ROM(const string& fname) : rom() {
 
-ROM::ROM(const string& fname) {
-	// TODO Auto-generated constructor stub
+	std::ifstream testFile(fname.c_str(), std::ios::binary);
 
-	fstream f(fname.c_str(), std::ios_base::in);
+	rom.assign((std::istreambuf_iterator<char>(testFile)), std::istreambuf_iterator<char>());
 
-	std::istream_iterator<unsigned char> eos;              // end-of-stream iterator
-	std::istream_iterator<unsigned char> fiter(f);   // stdin iterator
+	int bits = floor( log2(rom.size() -1) + 1 );
 
-	std::back_insert_iterator< std::vector<unsigned char> > back_it (rom);
+	std::cout << "N bits " << bits << std::endl;
+	std::cout << "Size " << std::hex << rom.size() -1 << std::endl;
 
-	std::copy(fiter, eos, back_it);
+	mask = (1 << bits) -1;
+
+	bits = floor( log2(65533) + 1 );
+	std::cout << "N bits " << std::dec << bits << std::endl;
+	std::cout << "Addr " << std::dec << 0xfffd << std::endl;
+	std::cout << "Addr (masked) " << std::hex << (0xfffd & mask) << std::endl;
+	std::cout << "Max " << std::hex << mask << std::endl;
+
 }
 
 ROM::~ROM() {
