@@ -92,7 +92,8 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_a_out_OBJECTS = 6502Emulator.$(OBJEXT)
+am_a_out_OBJECTS = 6502Emulator.$(OBJEXT) ROM.$(OBJEXT) \
+	Emulator.$(OBJEXT)
 a_out_OBJECTS = $(am_a_out_OBJECTS)
 a_out_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -151,17 +152,17 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/domahony/Projects/workspace/6502Emulator/missing aclocal-1.14
+ACLOCAL = ${SHELL} /home/domahony/git/6502Emulator/missing aclocal-1.14
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/domahony/Projects/workspace/6502Emulator/missing autoconf
-AUTOHEADER = ${SHELL} /home/domahony/Projects/workspace/6502Emulator/missing autoheader
-AUTOMAKE = ${SHELL} /home/domahony/Projects/workspace/6502Emulator/missing automake-1.14
+AUTOCONF = ${SHELL} /home/domahony/git/6502Emulator/missing autoconf
+AUTOHEADER = ${SHELL} /home/domahony/git/6502Emulator/missing autoheader
+AUTOMAKE = ${SHELL} /home/domahony/git/6502Emulator/missing automake-1.14
 AWK = gawk
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g -O2
+CXXFLAGS = -std=c++11 -ggdb3
 CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"6502Emulator\" -DPACKAGE_TARNAME=\"6502emulator\" -DPACKAGE_VERSION=\"1.0\" -DPACKAGE_STRING=\"6502Emulator\ 1.0\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"6502emulator\" -DVERSION=\"1.0\"
 DEPDIR = .deps
@@ -178,7 +179,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/domahony/Projects/workspace/6502Emulator/missing makeinfo
+MAKEINFO = ${SHELL} /home/domahony/git/6502Emulator/missing makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
 PACKAGE = 6502emulator
@@ -193,10 +194,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = 
 VERSION = 1.0
-abs_builddir = /home/domahony/Projects/workspace/6502Emulator/src
-abs_srcdir = /home/domahony/Projects/workspace/6502Emulator/src
-abs_top_builddir = /home/domahony/Projects/workspace/6502Emulator
-abs_top_srcdir = /home/domahony/Projects/workspace/6502Emulator
+abs_builddir = /home/domahony/git/6502Emulator/src
+abs_srcdir = /home/domahony/git/6502Emulator/src
+abs_top_builddir = /home/domahony/git/6502Emulator
+abs_top_srcdir = /home/domahony/git/6502Emulator
 ac_ct_CXX = g++
 am__include = include
 am__leading_dot = .
@@ -223,7 +224,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/domahony/Projects/workspace/6502Emulator/install-sh
+install_sh = ${SHELL} /home/domahony/git/6502Emulator/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -247,11 +248,11 @@ target_vendor = unknown
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-a_out_SOURCES = 6502Emulator.cpp
+a_out_SOURCES = 6502Emulator.cpp ROM.cc Emulator.cc
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .cpp .o .obj
+.SUFFIXES: .cc .cpp .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -336,6 +337,22 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/6502Emulator.Po
+include ./$(DEPDIR)/Emulator.Po
+include ./$(DEPDIR)/ROM.Po
+
+.cc.o:
+	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+#	$(AM_V_CXX)source='$<' object='$@' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXXCOMPILE) -c -o $@ $<
+
+.cc.obj:
+	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+#	$(AM_V_CXX)source='$<' object='$@' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 .cpp.o:
 	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
