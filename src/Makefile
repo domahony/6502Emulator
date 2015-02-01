@@ -93,7 +93,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_a_out_OBJECTS = 6502Emulator.$(OBJEXT) ROM.$(OBJEXT) \
-	Emulator.$(OBJEXT)
+	Emulator.$(OBJEXT) CPU.$(OBJEXT)
 a_out_OBJECTS = $(am_a_out_OBJECTS)
 a_out_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -248,7 +248,7 @@ target_vendor = unknown
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-a_out_SOURCES = 6502Emulator.cpp ROM.cc Emulator.cc
+a_out_SOURCES = 6502Emulator.cpp ROM.cc Emulator.cc CPU.cc
 all: all-am
 
 .SUFFIXES:
@@ -337,6 +337,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/6502Emulator.Po
+include ./$(DEPDIR)/CPU.Po
 include ./$(DEPDIR)/Emulator.Po
 include ./$(DEPDIR)/ROM.Po
 

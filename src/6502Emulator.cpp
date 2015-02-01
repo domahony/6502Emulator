@@ -11,14 +11,14 @@
 #include <iostream>
 #include <memory>
 #include "ROM.h"
-#include "Emulator.h"
+#include "CPU.h"
 
 using namespace std;
 using domahony::emu::ROM;
-using domahony::emu::Emulator;
+using domahony::emu::CPU;
 
 int main(void) {
+	CPU cpu(std::shared_ptr<ROM>(new ROM("/home/domahony/Projects/atariROMs/REVA.ROM")));
 
-	Emulator emulator(std::shared_ptr<ROM>(new ROM("/home/domahony/atari600xl.rom")));
-	emulator.run();
+	cpu.run();
 }

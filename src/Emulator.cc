@@ -17,8 +17,8 @@ using std::endl;
 
 Emulator::Emulator(std::shared_ptr<domahony::emu::ROM> rom): rom(rom)   {
 
-	unsigned char low = read(0xFFFC);
-	unsigned char high = read(0xFFFC + 1);
+	unsigned char low = read(0xFFFa);
+	unsigned char high = read(0xFFFa + 1);
 
 	pc = (high << 8) + low;
 
@@ -108,10 +108,14 @@ unsigned char Emulator::
 read(unsigned short addr)
 {
 
-	if (addr < 0x8000) {
+	/*
+ 	 * need to research these offsets.
+	 * need to research why ROM is mapped to A0000.
+ 	 */
+	if (addr < 0xA000) {
 		return ram[addr];
 	} else {
-		return rom->fetch(addr - 0x8000);
+		return rom->fetch(addr - 0xA000);
 	}
 
 }

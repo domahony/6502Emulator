@@ -115,7 +115,7 @@
  /usr/include/c++/4.8/backward/auto_ptr.h ROM.h \
  /usr/include/c++/4.8/vector /usr/include/c++/4.8/bits/stl_vector.h \
  /usr/include/c++/4.8/bits/stl_bvector.h \
- /usr/include/c++/4.8/bits/vector.tcc Emulator.h
+ /usr/include/c++/4.8/bits/vector.tcc CPU.h
 
 /usr/include/stdc-predef.h:
 
@@ -421,4 +421,4 @@ ROM.h:
 
 /usr/include/c++/4.8/bits/vector.tcc:
 
-Emulator.h:
+CPU.h:
