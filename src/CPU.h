@@ -45,6 +45,7 @@ private:
 	void init();
 
 	void ADC(unsigned short value);
+	void AND(unsigned short value);
 	void LDA(unsigned short addr);
 };
 

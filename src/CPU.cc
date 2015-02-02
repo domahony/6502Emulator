@@ -126,6 +126,45 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 		std::cout << "Acc Value: " << cpu.acc << std::endl;
 		return 1;
 	};
+
+
+	/* AND lambdas */
+
+	fn[0x29] = [] (CPU& cpu) {
+
+		unsigned char val = cpu.read(pc++);
+		cpu.AND(val);
+		return 2;
+
+	};
+
+	fn[0x25] = [] (CPU& cpu) {
+		unsigned short addr = cpu.read(pc++);
+		unsigned char val = cpu.read(addr);
+		cpu.AND(val);
+
+		return 2;
+	};
+
+	fn[0x35] = [] (CPU& cpu) {
+
+	};
+	fn[0x2d] = [] (CPU& cpu) {
+
+	};
+	fn[0x3d] = [] (CPU& cpu) {
+
+	};
+	fn[0x39] = [] (CPU& cpu) {
+
+	};
+	fn[0x21] = [] (CPU& cpu) {
+
+	};
+	fn[0x31] = [] (CPU& cpu) {
+
+	};
+
 }
 
 void CPU::
@@ -164,6 +203,19 @@ ADC(unsigned short value)
 
 	acc = val & 0xFF;
 
+}
+
+void CPU::
+AND(unsigned short value)
+{
+	acc = acc & (value & 0xFF);
+	N = acc >> 7;
+	Z = acc == 0;
+	/*
+	A = A & M
+	P.N = A.7
+	P.Z = (A==0) ? 1:0
+	*/
 }
 
 static unsigned char
