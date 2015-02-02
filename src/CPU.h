@@ -44,6 +44,23 @@ public:
 private:
 	void init();
 
+	unsigned char readImmediate8() {
+		return read(pc++);
+	}
+
+	unsigned char readMem16() {
+		unsigned short low = read(pc++);
+		unsigned short high = read(pc++);
+	}
+
+	unsigned char readZp() {
+
+	}
+
+	unsigned char readZpIndirectX() {
+
+	}
+
 	void ADC(unsigned short value);
 	void AND(unsigned short value);
 	void LDA(unsigned short addr);
