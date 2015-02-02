@@ -146,7 +146,7 @@ read(unsigned short addr)
 	}
 }
 
-int CPU::
+void CPU::
 ADC(unsigned short value)
 {
 	unsigned short val = acc + value + (C ? 1 : 0);

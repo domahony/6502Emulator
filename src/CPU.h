@@ -44,8 +44,8 @@ public:
 private:
 	void init();
 
-	int ADC(unsigned short value);
-	int LDA(unsigned short addr);
+	void ADC(unsigned short value);
+	void LDA(unsigned short addr);
 };
 
 } /* namespace emu */
