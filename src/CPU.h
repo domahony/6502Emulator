@@ -44,8 +44,56 @@ public:
 private:
 	void init();
 
-	int ADC(unsigned short value);
-	int LDA(unsigned short addr);
+	unsigned char readImmediate8() {
+		return read(pc++);
+	}
+
+	unsigned char readMem16() {
+		unsigned short low = read(pc++);
+		unsigned short high = read(pc++);
+
+		high <<= 8;
+		high += low;
+		return read(high);
+	}
+
+	unsigned char readZp() {
+
+		unsigned short zp = read(pc++);
+		return read(zp);
+	}
+
+	unsigned char readZpIndirectX() {
+		unsigned char zp = read(pc++);
+		zp += static_cast<char>(x);
+
+		unsigned char addr_low = read(zp);
+		unsigned short addr = read(zp + 1);
+		addr <<= 8;
+		addr += addr_low;
+
+		unsigned char val = read(addr);
+
+		return val;
+	}
+
+	unsigned char readZpIndirectY() {
+
+		unsigned char addr_low = read(pc++);
+		unsigned short addr_high = read(pc++);
+
+		addr_high <<= 8;
+		addr_high += addr_low;
+
+		unsigned char val = read(addr_high);
+		val += static_cast<char>(y);
+
+		return val;
+	}
+
+	void ADC(unsigned short value);
+	void AND(unsigned short value);
+	void LDA(unsigned short addr);
 };
 
 } /* namespace emu */

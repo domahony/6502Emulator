@@ -29,8 +29,11 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 
 	ram.resize(0xFFFF);
 
+	/*
+	 * ADC
+	 */
 	fn[0x69] = [](CPU& cpu) {
-		unsigned char val = cpu.read(cpu.pc++);
+		unsigned char val = cpu.readImmediate8();
 		cpu.ADC(val);
 		return 2;
 	};
@@ -102,9 +105,7 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 	};
 
 	fn[0x65] = [](CPU& cpu) {
-		unsigned char addr = cpu.read(cpu.pc++);
-		unsigned char val = cpu.read(addr);
-
+		unsigned char val = cpu.readZp();
 		cpu.ADC(val);
 		return 3;
 	};
@@ -126,6 +127,51 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 		std::cout << "Acc Value: " << cpu.acc << std::endl;
 		return 1;
 	};
+
+
+	/* AND lambdas */
+
+	fn[0x29] = [] (CPU& cpu) {
+
+		unsigned char val = cpu.read(cpu.pc++);
+		cpu.AND(val);
+		return 2;
+
+	};
+
+	fn[0x25] = [] (CPU& cpu) {
+		unsigned short addr = cpu.read(cpu.pc++);
+		unsigned char val = cpu.read(addr);
+		cpu.AND(val);
+
+		return 2;
+	};
+
+	fn[0x35] = [] (CPU& cpu) {
+
+		return -1;
+	};
+	fn[0x2d] = [] (CPU& cpu) {
+
+		return -1;
+	};
+	fn[0x3d] = [] (CPU& cpu) {
+
+		return -1;
+	};
+	fn[0x39] = [] (CPU& cpu) {
+
+		return -1;
+	};
+	fn[0x21] = [] (CPU& cpu) {
+
+		return -1;
+	};
+	fn[0x31] = [] (CPU& cpu) {
+
+		return -1;
+	};
+
 }
 
 void CPU::
@@ -146,7 +192,7 @@ read(unsigned short addr)
 	}
 }
 
-int CPU::
+void CPU::
 ADC(unsigned short value)
 {
 	unsigned short val = acc + value + (C ? 1 : 0);
@@ -164,6 +210,19 @@ ADC(unsigned short value)
 
 	acc = val & 0xFF;
 
+}
+
+void CPU::
+AND(unsigned short value)
+{
+	acc = acc & (value & 0xFF);
+	N = acc >> 7;
+	Z = acc == 0;
+	/*
+	A = A & M
+	P.N = A.7
+	P.Z = (A==0) ? 1:0
+	*/
 }
 
 static unsigned char
