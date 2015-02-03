@@ -29,8 +29,11 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 
 	ram.resize(0xFFFF);
 
+	/*
+	 * ADC
+	 */
 	fn[0x69] = [](CPU& cpu) {
-		unsigned char val = cpu.read(cpu.pc++);
+		unsigned char val = cpu.readImmediate8();
 		cpu.ADC(val);
 		return 2;
 	};
@@ -102,9 +105,7 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 	};
 
 	fn[0x65] = [](CPU& cpu) {
-		unsigned char addr = cpu.read(cpu.pc++);
-		unsigned char val = cpu.read(addr);
-
+		unsigned char val = cpu.readZp();
 		cpu.ADC(val);
 		return 3;
 	};
