@@ -124,7 +124,8 @@ public:
 	}
 
 	void ADC(unsigned char value);
-	void AND(unsigned short value);
+	void AND(unsigned char value);
+	unsigned char ASL(unsigned char value);
 	void LDA(unsigned short addr);
 
 private:

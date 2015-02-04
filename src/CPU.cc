@@ -8,6 +8,7 @@
 #include "CPU.h"
 #include "ADC.h"
 #include "AND.h"
+#include "ASL.h"
 #include <vector>
 #include <functional>
 
@@ -33,6 +34,7 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 
 	initADC(fn);
 	initAND(fn);
+	initASL(fn);
 
 	fn[0xa5] = [] (CPU& cpu) {
 
@@ -85,7 +87,7 @@ ADC(unsigned char arg)
 }
 
 void CPU::
-AND(unsigned short value)
+AND(unsigned char value)
 {
 	acc = acc & (value & 0xFF);
 	N = acc >> 7;
@@ -95,6 +97,24 @@ AND(unsigned short value)
 	P.N = A.7
 	P.Z = (A==0) ? 1:0
 	*/
+}
+
+unsigned char CPU::
+ASL(unsigned char value)
+{
+	C = (value >> 7) & 0x1;
+	unsigned char ret = (value << 1) & 0xFE;
+	N = (ret >> 7) & 0x1;
+	Z = ret == 0;
+
+	return ret;
+	/*
+	Logic:
+	  P.C = B.7
+	  B = (B << 1) & $FE
+	  P.N = B.7
+	  P.Z = (B==0) ? 1:0
+	 */
 }
 
 static unsigned char
