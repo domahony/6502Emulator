@@ -32,17 +32,7 @@ public:
 	unsigned char read(unsigned short);
 
 	bool N,V,B,D,I,Z,C;
-
-	unsigned short pc; //program counter;
-	unsigned char sp; // stack pointer;
-	unsigned char acc; //accumulator
-	unsigned char x; // X register
-	unsigned char y; // Y register
-
 	std::function<int (CPU&)> fn[255];
-
-private:
-	void init();
 
 	unsigned char readImmediate8() {
 		return read(pc++);
@@ -57,12 +47,45 @@ private:
 		return read(high);
 	}
 
+	unsigned char readMem16X(bool* pageBoundary) {
+		unsigned short low = read(pc++);
+		unsigned short high = read(pc++);
+
+		high <<= 8;
+		high += low;
+		high += static_cast<char>(x);
+
+		return read(high);
+	}
+
+
+	unsigned char readMem16Y(bool* pageBoundary) {
+		unsigned short low = read(pc++);
+		unsigned short high = read(pc++);
+
+		high <<= 8;
+		high += low;
+		high += static_cast<char>(y);
+
+		return read(high);
+	}
+
 	unsigned char readZp() {
 
 		unsigned short zp = read(pc++);
 		return read(zp);
 	}
 
+	unsigned char readZpX() {
+
+		unsigned short zp = read(pc++);
+		zp += static_cast<char>(x);
+
+		return read(zp);
+
+	}
+
+	// (zp, x)
 	unsigned char readZpIndirectX() {
 		unsigned char zp = read(pc++);
 		zp += static_cast<char>(x);
@@ -77,23 +100,43 @@ private:
 		return val;
 	}
 
-	unsigned char readZpIndirectY() {
+	//(zp), y
+	unsigned char readZpIndirectY(bool *page) {
 
-		unsigned char addr_low = read(pc++);
-		unsigned short addr_high = read(pc++);
+		unsigned char zp_addr = read(pc++);
+
+		unsigned char addr_low = read(zp_addr);
+		unsigned short addr_high = read(zp_addr + 1);
+
+		unsigned short h1 = addr_high;
 
 		addr_high <<= 8;
 		addr_high += addr_low;
 
+		addr_high += static_cast<char>(y);
+
+		unsigned short h2 = (addr_high >> 8) & 0xFF;
+
+		*page = (h1 != h2);
 		unsigned char val = read(addr_high);
-		val += static_cast<char>(y);
 
 		return val;
 	}
 
-	void ADC(unsigned short value);
+	void ADC(unsigned char value);
 	void AND(unsigned short value);
 	void LDA(unsigned short addr);
+
+private:
+	unsigned short pc; //program counter;
+	unsigned char sp; // stack pointer;
+	unsigned char acc; //accumulator
+	unsigned char x; // X register
+	unsigned char y; // Y register
+
+
+	void init();
+
 };
 
 } /* namespace emu */
