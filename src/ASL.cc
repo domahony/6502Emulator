@@ -8,25 +8,28 @@
 #include "CPU.h"
 
 using domahony::emu::CPU;
+using domahony::emu::Accumulator;
+using domahony::emu::Address;
 
 void
-initAND(std::function<int (domahony::emu::CPU&)> *fn)
+initASL(std::function<int (domahony::emu::CPU&)> *fn)
 {
 	// accumulator
 	fn[0x0A] = [](CPU& cpu) {
-		cpu.acc = cpu.ASL(cpu.acc);
+
+		Accumulator acc;
+		//cpu.acc = cpu.ASL(cpu.acc);
+		cpu.ASL<Accumulator>(acc);
 		return 2;
 	};
 
 	// zero page
 	fn[0x06] = [](CPU& cpu) {
 
-		unsigned short addr;
-		unsigned char val = cpu.readZp(addr);
-		val = cpu.ASL(val);
-
-		cpu.write(addr, val);
+		Address addr = cpu.getZp();
+		cpu.ASL<Address>(addr);
 		return 5;
+
 	};
 
 	// zero page, x
@@ -47,5 +50,6 @@ initAND(std::function<int (domahony::emu::CPU&)> *fn)
 		return 7;
 	};
 
+	*/
 }
 

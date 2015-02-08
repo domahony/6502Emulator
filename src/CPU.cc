@@ -99,15 +99,18 @@ AND(unsigned char value)
 	*/
 }
 
-unsigned char CPU::
-ASL(unsigned char value)
+template <typename T> void CPU::
+ASL(T addr)
 {
+	unsigned char value = addr.read(*this);
+
 	C = (value >> 7) & 0x1;
 	unsigned char ret = (value << 1) & 0xFE;
 	N = (ret >> 7) & 0x1;
 	Z = ret == 0;
 
-	return ret;
+	addr.write(*this, ret);
+
 	/*
 	Logic:
 	  P.C = B.7
@@ -115,6 +118,7 @@ ASL(unsigned char value)
 	  P.N = B.7
 	  P.Z = (B==0) ? 1:0
 	 */
+
 }
 
 static unsigned char
@@ -125,6 +129,71 @@ BCD(unsigned char v)
 
 	return tens + ones;
 }
+
+
+Address CPU::
+getImmediate()
+{
+
+}
+
+Address CPU::
+getAbsolute()
+{
+	unsigned char low = read(pc++);
+	unsigned char high = read(pc++);
+
+	return Address(low, high);
+}
+
+Address CPU::
+getZp()
+{
+
+}
+
+Address CPU::
+getRelative()
+{
+
+}
+
+Address CPU::
+getAbsoluteIdxWithX()
+{
+
+}
+
+Address CPU::
+getAbsoluteIdxWithY()
+{
+
+}
+
+Address CPU::
+getZpIdxWithX()
+{
+
+}
+
+Address CPU::
+getZpIdxWithY()
+{
+
+}
+
+Address CPU::
+getZpIdxIndirect()
+{
+
+}
+
+Address CPU::
+getZpIndirectIdxWithY()
+{
+
+}
+
 
 } /* namespace emu */
 } /* namespace domahony */

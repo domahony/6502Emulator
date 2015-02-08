@@ -16,7 +16,12 @@
 namespace domahony {
 namespace emu {
 
+class Address;
+
 class CPU {
+
+friend class Accumulator;
+
 public:
 	CPU(std::shared_ptr<domahony::emu::ROM> rom);
 
@@ -30,102 +35,27 @@ public:
 	std::vector<unsigned char> ram;
 
 	unsigned char read(unsigned short);
+	void write(unsigned short, unsigned char);
 
 	bool N,V,B,D,I,Z,C;
 	std::function<int (CPU&)> fn[255];
 
-	unsigned char readImmediate8() {
-		return read(pc++);
-	}
+	Address getImmediate();
+	Address getAbsolute();
+	Address getZp();
+	Address getRelative();
+	Address getAbsoluteIdxWithX();
+	Address getAbsoluteIdxWithY();
+	Address getZpIdxWithX();
+	Address getZpIdxWithY();
+	Address getZpIdxIndirect();
+	Address getZpIndirectIdxWithY();
 
-	unsigned char readMem16() {
-		unsigned short low = read(pc++);
-		unsigned short high = read(pc++);
-
-		high <<= 8;
-		high += low;
-		return read(high);
-	}
-
-	unsigned char readMem16X(bool* pageBoundary) {
-		unsigned short low = read(pc++);
-		unsigned short high = read(pc++);
-
-		high <<= 8;
-		high += low;
-		high += static_cast<char>(x);
-
-		return read(high);
-	}
-
-
-	unsigned char readMem16Y(bool* pageBoundary) {
-		unsigned short low = read(pc++);
-		unsigned short high = read(pc++);
-
-		high <<= 8;
-		high += low;
-		high += static_cast<char>(y);
-
-		return read(high);
-	}
-
-	unsigned char readZp() {
-
-		unsigned short zp = read(pc++);
-		return read(zp);
-	}
-
-	unsigned char readZpX() {
-
-		unsigned short zp = read(pc++);
-		zp += static_cast<char>(x);
-
-		return read(zp);
-
-	}
-
-	// (zp, x)
-	unsigned char readZpIndirectX() {
-		unsigned char zp = read(pc++);
-		zp += static_cast<char>(x);
-
-		unsigned char addr_low = read(zp);
-		unsigned short addr = read(zp + 1);
-		addr <<= 8;
-		addr += addr_low;
-
-		unsigned char val = read(addr);
-
-		return val;
-	}
-
-	//(zp), y
-	unsigned char readZpIndirectY(bool *page) {
-
-		unsigned char zp_addr = read(pc++);
-
-		unsigned char addr_low = read(zp_addr);
-		unsigned short addr_high = read(zp_addr + 1);
-
-		unsigned short h1 = addr_high;
-
-		addr_high <<= 8;
-		addr_high += addr_low;
-
-		addr_high += static_cast<char>(y);
-
-		unsigned short h2 = (addr_high >> 8) & 0xFF;
-
-		*page = (h1 != h2);
-		unsigned char val = read(addr_high);
-
-		return val;
-	}
 
 	void ADC(unsigned char value);
 	void AND(unsigned char value);
 	unsigned char ASL(unsigned char value);
+	template <typename T> void ASL(T addr);
 	void LDA(unsigned short addr);
 
 private:
@@ -138,6 +68,45 @@ private:
 
 	void init();
 
+};
+
+class Accumulator {
+	Accumulator() {};
+	~Accumulator() {};
+
+	unsigned char read(const CPU& c) const {
+		return c.acc;
+	}
+
+	void write(CPU& c, unsigned char val) const {
+		c.acc = val;
+	}
+};
+
+class Address {
+public:
+	Address(unsigned char low, unsigned char high)
+	{
+		addr = high;
+		addr <<= 8;
+		addr &= low;
+	}
+
+	unsigned char read(domahony::emu::CPU& c) const {
+		return c.read(addr);
+	}
+
+	void write(domahony::emu::CPU& c, unsigned char val) {
+		c.write(addr, val);
+	}
+
+
+	virtual ~Address() {
+
+	}
+
+private:
+	unsigned short addr;
 };
 
 } /* namespace emu */
