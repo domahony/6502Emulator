@@ -10,6 +10,8 @@
 #include "CPU.h"
 
 using domahony::emu::CPU;
+using domahony::emu::Address;
+using domahony::emu::Immediate;
 
 void
 initAND(std::function<int (domahony::emu::CPU&)> *fn)
@@ -20,32 +22,35 @@ initAND(std::function<int (domahony::emu::CPU&)> *fn)
 
 	// immediate
 	fn[0x29] = [](CPU& cpu) {
-		unsigned char val = cpu.readImmediate8();
-		cpu.AND(val);
+
+		Immediate immediate = cpu.getImmediate();
+		cpu.AND<Immediate>(immediate);
+
 		return 2;
 	};
 
 	// zero page
 	fn[0x25] = [](CPU& cpu) {
-		unsigned char val = cpu.readZp();
-		cpu.AND(val);
+
+		Address addr = cpu.getZp();
+		cpu.AND<Address>(addr);
 		return 3;
 	};
 
 	// zero page, x
 	fn[0x35] = [](CPU& cpu) {
 
-		unsigned char val = cpu.readZpX();
+		Address addr = cpu.getZpIdxWithX();
+		cpu.AND<Address>(addr);
 
-		cpu.AND(val);
 		return 4;
 	};
 
 	// absolute
 	fn[0x2D] = [](CPU& cpu) {
 
-		unsigned char val = cpu.readMem16();
-		cpu.AND(val);
+		Address addr = cpu.getAbsolute();
+		cpu.AND<Address>(addr);
 
 		return 4;
 	};
@@ -53,29 +58,26 @@ initAND(std::function<int (domahony::emu::CPU&)> *fn)
 	// absolute X
 	fn[0x3D] = [](CPU& cpu) {
 
-		bool pageBoundary = false;
-		unsigned char val = cpu.readMem16X(&pageBoundary);
+		Address addr = cpu.getAbsoluteIdxWithX();
+		cpu.AND<Address>(addr);
 
-		cpu.AND(val);
-
-		return 4 + pageBoundary ? 1 : 0;
+		return 4 + addr.boundary_cross() ? 1 : 0;
 	};
 
 	// absolute Y
 	fn[0x39] = [](CPU& cpu) {
-		bool pageBoundary = false;
-		unsigned char val = cpu.readMem16Y(&pageBoundary);
 
-		cpu.AND(val);
+		Address addr = cpu.getAbsoluteIdxWithY();
+		cpu.AND<Address>(addr);
 
-		return 4 + pageBoundary ? 1 : 0;
-	};
+		return 4 + addr.boundary_cross() ? 1 : 0;
+		};
 
 	// (indirect, X)
 	fn[0x21] = [](CPU& cpu) {
 
-		unsigned short val = cpu.readZpIndirectX();
-		cpu.AND(val);
+		Address addr = cpu.getZpIdxIndirect();
+		cpu.AND<Address>(addr);
 
 		return 6;
 	};
@@ -83,11 +85,10 @@ initAND(std::function<int (domahony::emu::CPU&)> *fn)
 	// (indirect), Y
 	fn[0x31] = [](CPU& cpu) {
 
-		bool page = false;
-		unsigned short val = cpu.readZpIndirectY(&page);
+		Address addr = cpu.getZpIndirectIdxWithY();
+		cpu.AND<Address>(addr);
 
-		cpu.AND(val);
-		return 5 + page ? 1 : 0;
+		return 5 + addr.boundary_cross() ? 1 : 0;
 
 	};
 

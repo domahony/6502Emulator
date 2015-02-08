@@ -10,6 +10,8 @@
 #include "CPU.h"
 
 using domahony::emu::CPU;
+using domahony::emu::Address;
+using domahony::emu::Immediate;
 
 void
 initADC(std::function<int (domahony::emu::CPU&)> *fn)
@@ -17,69 +19,77 @@ initADC(std::function<int (domahony::emu::CPU&)> *fn)
 	/*
 	 * ADC
 	 */
+
+	// immediate
 	fn[0x69] = [](CPU& cpu) {
-		unsigned char val = cpu.readImmediate8();
-		cpu.ADC(val);
+
+		Immediate immediate = cpu.getImmediate();
+		cpu.ADC<Immediate>(immediate);
+
 		return 2;
 	};
 
-	fn[0x6D] = [](CPU& cpu) {
+	// zero page
+	fn[0x65] = [](CPU& cpu) {
 
-		unsigned char val = cpu.readMem16();
-		cpu.ADC(val);
+		Address addr = cpu.getZp();
+		cpu.ADC<Address>(addr);
+		return 3;
+	};
+
+	// zero page, x
+	fn[0x75] = [](CPU& cpu) {
+
+		Address addr = cpu.getZpIdxWithX();
+		cpu.ADC<Address>(addr);
 
 		return 4;
 	};
 
+	// absolute
+	fn[0x62] = [](CPU& cpu) {
+
+		Address addr = cpu.getAbsolute();
+		cpu.ADC<Address>(addr);
+
+		return 4;
+	};
+
+	// absolute X
 	fn[0x7D] = [](CPU& cpu) {
 
-		bool pageBoundary = false;
-		unsigned char val = cpu.readMem16X(&pageBoundary);
+		Address addr = cpu.getAbsoluteIdxWithX();
+		cpu.ADC<Address>(addr);
 
-		cpu.ADC(val);
-
-		return 4 + pageBoundary ? 1 : 0;
+		return 4 + addr.boundary_cross() ? 1 : 0;
 	};
 
+	// absolute Y
 	fn[0x79] = [](CPU& cpu) {
-		bool pageBoundary = false;
-		unsigned char val = cpu.readMem16Y(&pageBoundary);
 
-		cpu.ADC(val);
+		Address addr = cpu.getAbsoluteIdxWithY();
+		cpu.ADC<Address>(addr);
 
-		return 4 + pageBoundary ? 1 : 0;
-	};
+		return 4 + addr.boundary_cross() ? 1 : 0;
+		};
 
+	// (indirect, X)
 	fn[0x61] = [](CPU& cpu) {
 
-		unsigned short val = cpu.readZpIndirectX();
-		cpu.ADC(val);
+		Address addr = cpu.getZpIdxIndirect();
+		cpu.ADC<Address>(addr);
 
 		return 6;
 	};
 
+	// (indirect), Y
 	fn[0x71] = [](CPU& cpu) {
 
-		bool page = false;
-		unsigned short val = cpu.readZpIndirectY(&page);
+		Address addr = cpu.getZpIndirectIdxWithY();
+		cpu.ADC<Address>(addr);
 
-		cpu.ADC(val);
-		return 5 + page ? 1 : 0;
+		return 5 + addr.boundary_cross() ? 1 : 0;
 
-	};
-
-	fn[0x65] = [](CPU& cpu) {
-		unsigned char val = cpu.readZp();
-		cpu.ADC(val);
-		return 3;
-	};
-
-	fn[0x75] = [](CPU& cpu) {
-
-		unsigned char val = cpu.readZpX();
-
-		cpu.ADC(val);
-		return 4;
 	};
 
 }

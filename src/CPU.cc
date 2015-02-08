@@ -18,8 +18,6 @@ namespace emu {
 using std::vector;
 using std::function;
 
-static unsigned char BCD(unsigned char);
-
 CPU::
 CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 
@@ -66,62 +64,16 @@ read(unsigned short addr)
 	}
 }
 
+
 void CPU::
-ADC(unsigned char arg)
+write(unsigned short addr, unsigned char val)
 {
-	unsigned short val = acc + arg + (C ? 1 : 0);
-
-	V = ((val >> 7) != (acc >> 7));
-	N = (acc >> 7) & 0x1;
-	Z = (val == 0);
-
-	if (D) {
-		val = BCD(acc) + BCD(arg) + (C ? 1 : 0);
-		C = val > 99;
-	} else {
-		C = val > 255;
+	if (addr < 0xA000) {
+		ram[addr] == val;
 	}
-
-	acc = val & 0xFF;
-
 }
 
-void CPU::
-AND(unsigned char value)
-{
-	acc = acc & (value & 0xFF);
-	N = acc >> 7;
-	Z = acc == 0;
-	/*
-	A = A & M
-	P.N = A.7
-	P.Z = (A==0) ? 1:0
-	*/
-}
-
-template <typename T> void CPU::
-ASL(T addr)
-{
-	unsigned char value = addr.read(*this);
-
-	C = (value >> 7) & 0x1;
-	unsigned char ret = (value << 1) & 0xFE;
-	N = (ret >> 7) & 0x1;
-	Z = ret == 0;
-
-	addr.write(*this, ret);
-
-	/*
-	Logic:
-	  P.C = B.7
-	  B = (B << 1) & $FE
-	  P.N = B.7
-	  P.Z = (B==0) ? 1:0
-	 */
-
-}
-
-static unsigned char
+unsigned char
 BCD(unsigned char v)
 {
 	unsigned char tens = (v >> 4) * 10;
@@ -131,10 +83,11 @@ BCD(unsigned char v)
 }
 
 
-Address CPU::
+Immediate CPU::
 getImmediate()
 {
-
+	Immediate ret(read(pc++));
+	return ret;
 }
 
 Address CPU::
@@ -149,7 +102,11 @@ getAbsolute()
 Address CPU::
 getZp()
 {
+	unsigned char low = read(pc++);
+	unsigned char high = 0;
+	Address addr(low, high);
 
+	return addr;
 }
 
 Address CPU::
@@ -161,19 +118,29 @@ getRelative()
 Address CPU::
 getAbsoluteIdxWithX()
 {
+	unsigned char low = read(pc++);
+	unsigned char high = read(pc++);
 
+	return Address(low, high, x);
 }
 
 Address CPU::
 getAbsoluteIdxWithY()
 {
+	unsigned char low = read(pc++);
+	unsigned char high = read(pc++);
 
+	return Address(low, high, y);
 }
 
 Address CPU::
 getZpIdxWithX()
 {
+	unsigned char zp = read(pc++);
+	zp += x;
 
+	Address addr(zp, 0);
+	return addr;
 }
 
 Address CPU::
@@ -185,13 +152,24 @@ getZpIdxWithY()
 Address CPU::
 getZpIdxIndirect()
 {
+	unsigned char zp = read(pc++);
+	zp += static_cast<char>(x);
 
+	unsigned char low = read(zp);
+	unsigned char high = read(zp + 1);
+
+	return Address(low, high);
 }
 
 Address CPU::
 getZpIndirectIdxWithY()
 {
+	unsigned char zp = read(pc++);
 
+	unsigned char low = read(zp);
+	unsigned char high = read(zp + 1);
+
+	return Address(low, high, static_cast<char>(y));
 }
 
 

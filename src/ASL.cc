@@ -49,7 +49,5 @@ initASL(std::function<int (domahony::emu::CPU&)> *fn)
 
 		return 7;
 	};
-
-	*/
 }
 

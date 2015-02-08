@@ -16,7 +16,10 @@
 namespace domahony {
 namespace emu {
 
+unsigned char BCD(unsigned char v);
+
 class Address;
+class Immediate;
 
 class CPU {
 
@@ -40,7 +43,7 @@ public:
 	bool N,V,B,D,I,Z,C;
 	std::function<int (CPU&)> fn[255];
 
-	Address getImmediate();
+	Immediate getImmediate();
 	Address getAbsolute();
 	Address getZp();
 	Address getRelative();
@@ -52,11 +55,62 @@ public:
 	Address getZpIndirectIdxWithY();
 
 
-	void ADC(unsigned char value);
-	void AND(unsigned char value);
-	unsigned char ASL(unsigned char value);
-	template <typename T> void ASL(T addr);
-	void LDA(unsigned short addr);
+	template <typename T> void ADC(T addr)
+	{
+		unsigned char arg = addr.read(*this);
+
+		unsigned short val = acc + arg + (C ? 1 : 0);
+
+		V = ((val >> 7) != (acc >> 7));
+		N = (acc >> 7) & 0x1;
+		Z = (val == 0);
+
+		if (D) {
+			val = BCD(acc) + BCD(arg) + (C ? 1 : 0);
+			C = val > 99;
+		} else {
+			C = val > 255;
+		}
+
+		acc = val & 0xFF;
+	}
+
+	template <typename T> void AND(T addr)
+	{
+		unsigned char value = addr.read(*this);
+
+		acc = acc & (value & 0xFF);
+		N = acc >> 7;
+		Z = acc == 0;
+		/*
+		A = A & M
+		P.N = A.7
+		P.Z = (A==0) ? 1:0
+		 */
+	}
+
+	template <typename T> void ASL(T addr)
+	{
+		unsigned char value = addr.read(*this);
+
+		C = (value >> 7) & 0x1;
+		unsigned char ret = (value << 1) & 0xFE;
+		N = (ret >> 7) & 0x1;
+		Z = ret == 0;
+
+		addr.write(*this, ret);
+
+		/*
+		Logic:
+		  P.C = B.7
+		  B = (B << 1) & $FE
+		  P.N = B.7
+		  P.Z = (B==0) ? 1:0
+		 */
+
+	}
+
+	template <typename T> void LDA(T addr);
 
 private:
 	unsigned short pc; //program counter;
@@ -71,6 +125,7 @@ private:
 };
 
 class Accumulator {
+public:
 	Accumulator() {};
 	~Accumulator() {};
 
@@ -85,11 +140,24 @@ class Accumulator {
 
 class Address {
 public:
-	Address(unsigned char low, unsigned char high)
+
+	Address(unsigned char low, unsigned char high) : boundary(false)
 	{
-		addr = high;
 		addr <<= 8;
 		addr &= low;
+	}
+
+	Address(unsigned char low, unsigned char high, char offset) : Address(low, high)
+	{
+		unsigned short ah1 = addr >> 8;
+		addr += offset;
+		unsigned short ah2 = addr >> 8;
+
+		boundary = ah1 != ah2;
+	}
+
+	bool boundary_cross() const {
+		return boundary;
 	}
 
 	unsigned char read(domahony::emu::CPU& c) const {
@@ -107,9 +175,26 @@ public:
 
 private:
 	unsigned short addr;
+	bool boundary;
+};
+
+class Immediate {
+public:
+	Immediate(unsigned char val) : val(val) {
+
+	}
+
+	unsigned char read(domahony::emu::CPU& c) const {
+		return val;
+	}
+
+private:
+	const unsigned char val;
 };
 
 } /* namespace emu */
 } /* namespace domahony */
+
+
 
 #endif /* CPU_H_ */
