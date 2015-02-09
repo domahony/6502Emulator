@@ -20,6 +20,7 @@ unsigned char BCD(unsigned char v);
 
 class Address;
 class Immediate;
+class Relative;
 
 class CPU {
 
@@ -46,7 +47,7 @@ public:
 	Immediate getImmediate();
 	Address getAbsolute();
 	Address getZp();
-	Address getRelative();
+	Relative getRelative();
 	Address getAbsoluteIdxWithX();
 	Address getAbsoluteIdxWithY();
 	Address getZpIdxWithX();
@@ -54,62 +55,13 @@ public:
 	Address getZpIdxIndirect();
 	Address getZpIndirectIdxWithY();
 
-
-	template <typename T> void ADC(T addr)
-	{
-		unsigned char arg = addr.read(*this);
-
-		unsigned short val = acc + arg + (C ? 1 : 0);
-
-		V = ((val >> 7) != (acc >> 7));
-		N = (acc >> 7) & 0x1;
-		Z = (val == 0);
-
-		if (D) {
-			val = BCD(acc) + BCD(arg) + (C ? 1 : 0);
-			C = val > 99;
-		} else {
-			C = val > 255;
-		}
-
-		acc = val & 0xFF;
-	}
-
-	template <typename T> void AND(T addr)
-	{
-		unsigned char value = addr.read(*this);
-
-		acc = acc & (value & 0xFF);
-		N = acc >> 7;
-		Z = acc == 0;
-		/*
-		A = A & M
-		P.N = A.7
-		P.Z = (A==0) ? 1:0
-		 */
-	}
-
-	template <typename T> void ASL(T addr)
-	{
-		unsigned char value = addr.read(*this);
-
-		C = (value >> 7) & 0x1;
-		unsigned char ret = (value << 1) & 0xFE;
-		N = (ret >> 7) & 0x1;
-		Z = ret == 0;
-
-		addr.write(*this, ret);
-
-		/*
-		Logic:
-		  P.C = B.7
-		  B = (B << 1) & $FE
-		  P.N = B.7
-		  P.Z = (B==0) ? 1:0
-		 */
-
-	}
-
+	template <typename T> void ADC(T addr);
+	template <typename T> void AND(T addr);
+	template <typename T> void ASL(T addr);
+	template <typename T> void BCC(T addr);
+	template <typename T> void BCS(T addr);
+	template <typename T> void BEQ(T addr);
+	template <typename T> void BIT(T addr);
 	template <typename T> void LDA(T addr);
 
 private:
@@ -190,6 +142,39 @@ public:
 
 private:
 	const unsigned char val;
+};
+
+class Relative {
+public:
+	Relative(unsigned short pc, char offset) : pc(pc), offset(offset), addr(pc + offset), branch(false) {
+
+	}
+
+	unsigned char read(domahony::emu::CPU& c) const {
+		return addr;
+	}
+
+	void set_branch() {
+		branch = true;
+	}
+
+	bool branch_taken() const {
+		return branch;
+	}
+
+	bool page_boundary() const {
+
+		unsigned char ah1 = pc >> 8;;
+		unsigned char ah2 = addr >> 8;
+
+		return ah1 != ah2;
+	}
+
+private:
+	const unsigned short pc;
+	const char offset;
+	const unsigned char addr;
+	bool branch;
 };
 
 } /* namespace emu */

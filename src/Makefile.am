@@ -1,3 +1,2 @@
 bin_PROGRAMS=a.out
-a_out_SOURCES=6502Emulator.cpp ROM.cc Emulator.cc CPU.cc ADC.cc AND.cc ASL.cc
-
+a_out_SOURCES=6502Emulator.cpp ROM.cc Emulator.cc CPU.cc ADC.cc AND.cc ASL.cc BCC.cc BIT.cc

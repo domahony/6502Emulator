@@ -35,18 +35,21 @@ initASL(std::function<int (domahony::emu::CPU&)> *fn)
 	// zero page, x
 	fn[0x16] = [](CPU& cpu) {
 
+		xxx
 		return 6;
 	};
 
 	// absolute
 	fn[0x0E] = [](CPU& cpu) {
 
+		xxx
 		return 6;
 	};
 
 	// absolute X
 	fn[0x1E] = [](CPU& cpu) {
 
+		xxx
 		return 7;
 	};
 }

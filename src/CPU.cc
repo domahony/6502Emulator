@@ -9,6 +9,8 @@
 #include "ADC.h"
 #include "AND.h"
 #include "ASL.h"
+#include "BCC.h"
+#include "BIT.h"
 #include <vector>
 #include <functional>
 
@@ -33,6 +35,10 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 	initADC(fn);
 	initAND(fn);
 	initASL(fn);
+	initBCC(fn);
+	initBCS(fn);
+	initBEQ(fn);
+	initBIT(fn);
 
 	fn[0xa5] = [] (CPU& cpu) {
 
@@ -109,10 +115,11 @@ getZp()
 	return addr;
 }
 
-Address CPU::
+Relative CPU::
 getRelative()
 {
-
+	unsigned char offset = read(pc++);
+	return Relative(pc, static_cast<char>(offset));
 }
 
 Address CPU::
@@ -172,6 +179,123 @@ getZpIndirectIdxWithY()
 	return Address(low, high, static_cast<char>(y));
 }
 
+template <typename T> void CPU::
+AND(T addr)
+{
+	unsigned char value = addr.read(*this);
+
+	acc = acc & (value & 0xFF);
+	N = acc >> 7;
+	Z = acc == 0;
+	/*
+	A = A & M
+	P.N = A.7
+	P.Z = (A==0) ? 1:0
+	 */
+}
+
+template void CPU::AND<Immediate>(Immediate);
+template void CPU::AND<Address>(Address);
+
+template <typename T> void CPU::
+ASL(T addr)
+{
+	unsigned char value = addr.read(*this);
+
+	C = (value >> 7) & 0x1;
+	unsigned char ret = (value << 1) & 0xFE;
+	N = (ret >> 7) & 0x1;
+	Z = ret == 0;
+
+	addr.write(*this, ret);
+
+	/*
+	Logic:
+	  P.C = B.7
+	  B = (B << 1) & $FE
+	  P.N = B.7
+	  P.Z = (B==0) ? 1:0
+	 */
+
+}
+
+template void CPU::ASL<Accumulator>(Accumulator);
+template void CPU::ASL<Address>(Address);
+
+template <typename T> void CPU::
+ADC(T addr)
+{
+	unsigned char arg = addr.read(*this);
+
+	unsigned short val = acc + arg + (C ? 1 : 0);
+
+	V = ((val >> 7) != (acc >> 7));
+	N = (acc >> 7) & 0x1;
+	Z = (val == 0);
+
+	if (D) {
+		val = BCD(acc) + BCD(arg) + (C ? 1 : 0);
+		C = val > 99;
+	} else {
+		C = val > 255;
+	}
+
+	acc = val & 0xFF;
+}
+
+template void CPU::ADC<Immediate>(Immediate);
+template void CPU::ADC<Address>(Address);
+
+template <typename T> void CPU::
+BCC(T addr)
+{
+	if (!C) {
+		pc = addr.read(*this);
+		addr.set_branch();
+	}
+}
+
+template void CPU::BCC<Relative>(Relative);
+
+template <typename T> void CPU::
+BCS(T addr)
+{
+	if (C) {
+		pc = addr.read(*this);
+		addr.set_branch();
+	}
+}
+
+template void CPU::BCS<Relative>(Relative);
+
+template <typename T> void CPU::
+BEQ(T addr)
+{
+	if (Z) {
+		pc = addr.read(*this);
+		addr.set_branch();
+	}
+}
+
+template void CPU::BEQ<Relative>(Relative);
+
+template <typename T> void CPU::
+BIT(T addr)
+{
+	unsigned char t  = acc & addr.read(*this) ;
+
+	N = (t >> 7) && 0x1;
+	V = (t >> 6) && 0x1;
+	Z = (t == 0);
+	/*
+	  t = A & M
+	  P.N = t.7
+	  P.V = t.6
+	  P.Z = (t==0) ? 1:0
+	*/
+}
+
+template void CPU::BIT<Address>(Address);
 
 } /* namespace emu */
 } /* namespace domahony */
