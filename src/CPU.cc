@@ -16,6 +16,12 @@
 #include "CPX_Y.h"
 #include "DEC.h"
 #include "DEX_Y.h"
+#include "EOR.h"
+#include "INC.h"
+#include "INX_Y.h"
+#include "JMP.h"
+#include "JSR.h"
+#include "LDA.h"
 #include <vector>
 #include <functional>
 
@@ -54,16 +60,13 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 	initDEC(fn);
 	initDEX(fn);
 	initDEY(fn);
-
-	fn[0xa5] = [] (CPU& cpu) {
-
-		std::cout << "Executing" << std::endl;
-		unsigned char addr = cpu.read(cpu.pc++);
-		cpu.acc = cpu.read(addr);
-
-		std::cout << "Acc Value: " << cpu.acc << std::endl;
-		return 1;
-	};
+	initEOR(fn);
+	initINC(fn);
+	initINX(fn);
+	initINY(fn);
+	initJMP(fn);
+	initJSR(fn);
+	initLDA(fn);
 
 }
 
@@ -148,6 +151,22 @@ getAbsolute()
 	unsigned char high = read(pc++);
 
 	return Address(low, high);
+}
+
+Address CPU::
+getIndirect()
+{
+	unsigned char low = read(pc++);
+	unsigned char high = read(pc++);
+
+	unsigned short addr = high << 8;
+	addr |= low;
+
+	unsigned char low2 = read(addr);
+	unsigned char high2 = read(addr + 1);
+
+	return Address(low2, high2);
+
 }
 
 Address CPU::
@@ -517,6 +536,106 @@ DEY()
 	Z = (y == 0);
 	N = (y >> 7) & 0x1;
 }
+
+template <typename T> void CPU::
+EOR(T addr)
+{
+	unsigned char arg = addr.read(*this);
+
+	acc ^= arg;
+	N = (acc >> 7) & 0x1;
+	Z = (acc == 0);
+
+	/*
+	  A = A ^ M
+	  P.N = A.7
+	  P.Z = (A==0) ? 1:0
+	*/
+}
+
+template void CPU::EOR<Immediate>(Immediate);
+template void CPU::EOR<Address>(Address);
+
+template <typename T> void CPU::
+INC(T addr)
+{
+	unsigned char arg = addr.read(*this);
+	arg++;
+	arg &= 0xFF;
+
+	N = (arg >> 7) & 0x1;
+	Z = (arg == 0);
+
+	addr.write(*this, arg);
+}
+
+template void CPU::INC<Address>(Address);
+
+void CPU::
+INX()
+{
+	x++;
+
+	Z = (x == 0);
+	N = (x >> 7) & 0x1;
+}
+
+void CPU::
+INY()
+{
+	y++;
+
+	Z = (y == 0);
+	N = (y >> 7) & 0x1;
+}
+
+template <typename T> void CPU::
+JMP(T addr)
+{
+	unsigned char low = addr.read(*this);
+
+	unsigned short a = addr.get_address();
+
+	unsigned char high = read(a);
+
+	pc = high << 8;
+	pc |= low;
+}
+template void CPU::JMP<Address>(Address);
+
+template <typename T> void CPU::
+JSR(T addr)
+{
+	unsigned short a = addr.get_address();
+
+	unsigned char pc_h = (pc - 1) >> 8 && 0xFF;
+	unsigned char pc_l = (pc - 1) && 0xFF;
+
+	push(pc_h);
+	push(pc_l);
+
+	pc = a;
+}
+
+template void CPU::JSR<Address>(Address);
+
+template <typename T> void CPU::
+LDA(T addr)
+{
+	acc = addr.read(*this);
+
+	N = acc >> 7;
+	Z = (acc == 0);
+
+	/*
+	 A = M
+	  P.N = A.7
+	  P.Z = (A==0) ? 1:0
+	*/
+}
+
+template void CPU::LDA<Immediate>(Immediate);
+template void CPU::LDA<Address>(Address);
 
 } /* namespace emu */
 } /* namespace domahony */

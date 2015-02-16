@@ -1,56 +1,56 @@
 /*
- * DEC.cc
+ * INC.cc
  *
  *  Created on: Feb 15, 2015
  *      Author: domahony
  */
 
 
-#include "DEC.h"
+#include "INC.h"
 #include "CPU.h"
 
 using domahony::emu::CPU;
 using domahony::emu::Address;
 
 void
-initDEC(std::function<int (domahony::emu::CPU&)> *fn)
+initINC(std::function<int (domahony::emu::CPU&)> *fn)
 {
 	/*
-	 * DEC
+	 * INC
 	 */
 
 	// zero page
-	fn[0xc6] = [](CPU& cpu) {
+	fn[0xe6] = [](CPU& cpu) {
 
 		Address addr = cpu.getZp();
-		cpu.DEC<Address>(addr);
+		cpu.INC<Address>(addr);
 
 		return 5;
 	};
 
 	// zero page, x
-	fn[0xd6] = [](CPU& cpu) {
+	fn[0xf6] = [](CPU& cpu) {
 
 		Address addr = cpu.getZpIdxWithX();
-		cpu.DEC<Address>(addr);
+		cpu.INC<Address>(addr);
 
 		return 6;
 	};
 
-	// zero page, x
-	fn[0xce] = [](CPU& cpu) {
+	// absolute
+	fn[0xee] = [](CPU& cpu) {
 
 		Address addr = cpu.getAbsolute();
-		cpu.DEC<Address>(addr);
+		cpu.INC<Address>(addr);
 
 		return 6;
 	};
 
-	// zero page, x
-	fn[0xde] = [](CPU& cpu) {
+	// absolute, x
+	fn[0xfe] = [](CPU& cpu) {
 
 		Address addr = cpu.getAbsoluteIdxWithX();
-		cpu.DEC<Address>(addr);
+		cpu.INC<Address>(addr);
 
 		return 7;
 	};

@@ -46,6 +46,7 @@ public:
 
 	Immediate getImmediate();
 	Address getAbsolute();
+	Address getIndirect();
 	Address getZp();
 	Relative getRelative();
 	Address getAbsoluteIdxWithX();
@@ -78,6 +79,12 @@ public:
 	template <typename T> void DEC(T addr);
 	void DEX();
 	void DEY();
+	template <typename T> void EOR(T addr);
+	template <typename T> void INC(T addr);
+	void INX();
+	void INY();
+	template <typename T> void JMP(T addr);
+	template <typename T> void JSR(T addr);
 
 	template <typename T> void LDA(T addr);
 
@@ -140,6 +147,9 @@ public:
 		c.write(addr, val);
 	}
 
+	unsigned short get_address() const {
+		return addr;
+	}
 
 	virtual ~Address() {
 
