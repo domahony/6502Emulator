@@ -1,12 +1,12 @@
 /*
- * ADC.cc
+ * ORA.cc
  *
- *  Created on: Feb 3, 2015
+ *  Created on: Feb 16, 2015
  *      Author: domahony
  */
 
 
-#include "AND.h"
+#include "ORA.h"
 #include "CPU.h"
 
 using domahony::emu::CPU;
@@ -14,81 +14,82 @@ using domahony::emu::Address;
 using domahony::emu::Immediate;
 
 void
-initAND(std::function<int (domahony::emu::CPU&)> *fn)
+initORA(std::function<int (domahony::emu::CPU&)> *fn)
 {
 	/*
-	 * AND
+	 * ORA
 	 */
 
 	// immediate
-	fn[0x29] = [](CPU& cpu) {
+	fn[0x09] = [](CPU& cpu) {
 
 		Immediate immediate = cpu.getImmediate();
-		cpu.AND<Immediate>(immediate);
+		cpu.ORA<Immediate>(immediate);
 
 		return 2;
 	};
 
 	// zero page
-	fn[0x25] = [](CPU& cpu) {
+	fn[0x05] = [](CPU& cpu) {
 
 		Address addr = cpu.getZp();
-		cpu.AND<Address>(addr);
+		cpu.ORA<Address>(addr);
 		return 2;
 	};
 
 	// zero page, x
-	fn[0x35] = [](CPU& cpu) {
+	fn[0x15] = [](CPU& cpu) {
 
 		Address addr = cpu.getZpIdxWithX();
-		cpu.AND<Address>(addr);
+		cpu.ORA<Address>(addr);
 
 		return 3;
 	};
 
 	// absolute
-	fn[0x2D] = [](CPU& cpu) {
+	fn[0x0D] = [](CPU& cpu) {
 
 		Address addr = cpu.getAbsolute();
-		cpu.AND<Address>(addr);
+		cpu.ORA<Address>(addr);
 
 		return 4;
 	};
 
 	// absolute X
-	fn[0x3D] = [](CPU& cpu) {
+	fn[0x1D] = [](CPU& cpu) {
 
 		Address addr = cpu.getAbsoluteIdxWithX();
-		cpu.AND<Address>(addr);
+		cpu.ORA<Address>(addr);
 
 		return 4 + addr.boundary_cross() ? 1 : 0;
 	};
 
 	// absolute Y
-	fn[0x39] = [](CPU& cpu) {
+	fn[0x19] = [](CPU& cpu) {
 
 		Address addr = cpu.getAbsoluteIdxWithY();
-		cpu.AND<Address>(addr);
+		cpu.ORA<Address>(addr);
 
 		return 4 + addr.boundary_cross() ? 1 : 0;
 		};
 
 	// (indirect, X)
-	fn[0x21] = [](CPU& cpu) {
+	fn[0x01] = [](CPU& cpu) {
 
 		Address addr = cpu.getZpIdxIndirect();
-		cpu.AND<Address>(addr);
+		cpu.ORA<Address>(addr);
 
 		return 6;
 	};
 
 	// (indirect), Y
-	fn[0x31] = [](CPU& cpu) {
+	fn[0x11] = [](CPU& cpu) {
 
 		Address addr = cpu.getZpIndirectIdxWithY();
-		cpu.AND<Address>(addr);
+		cpu.ORA<Address>(addr);
 
 		return 5 + addr.boundary_cross() ? 1 : 0;
 
 	};
+
 }

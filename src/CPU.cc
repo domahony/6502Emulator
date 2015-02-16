@@ -22,6 +22,10 @@
 #include "JMP.h"
 #include "JSR.h"
 #include "LDA.h"
+#include "LDX_Y.h"
+#include "LSR.h"
+#include "NOP.h"
+#include "ORA.h"
 #include <vector>
 #include <functional>
 
@@ -67,6 +71,11 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 	initJMP(fn);
 	initJSR(fn);
 	initLDA(fn);
+	initLDX(fn);
+	initLDY(fn);
+	initLSR(fn);
+	initNOP(fn);
+	initORA(fn);
 
 }
 
@@ -636,6 +645,90 @@ LDA(T addr)
 
 template void CPU::LDA<Immediate>(Immediate);
 template void CPU::LDA<Address>(Address);
+
+template <typename T> void CPU::
+LDX(T addr)
+{
+	x = addr.read(*this);
+
+	N = x >> 7;
+	Z = (x == 0);
+
+	/*
+	  X = M
+	  P.N = X.7
+	  P.Z = (X==0) ? 1:0
+	*/
+
+}
+
+template void CPU::LDX<Immediate>(Immediate);
+template void CPU::LDX<Address>(Address);
+
+template <typename T> void CPU::
+LDY(T addr)
+{
+	y = addr.read(*this);
+
+	N = y >> 7;
+	Z = (y == 0);
+
+	/*
+ Y = M
+  P.N = Y.7
+  P.Z = (Y==0) ? 1:0
+	*/
+}
+
+template void CPU::LDY<Immediate>(Immediate);
+template void CPU::LDY<Address>(Address);
+
+template <typename T> void CPU::
+LSR(T addr)
+{
+	unsigned char val = addr.read(*this);
+
+	N = 0;
+	C = val & 0x1;
+	val = (val >> 1) & 0x7F;
+	Z = (val == 0);
+
+	addr.write(*this, val);
+
+	/*
+  P.N = 0
+  P.C = B.0
+  B = (B >> 1) & $7F
+  P.Z = (B==0) ? 1:0
+	*/
+}
+
+template void CPU::LSR<Address>(Address);
+template void CPU::LSR<Accumulator>(Accumulator);
+
+void CPU::
+NOP()
+{
+	// do nothing
+}
+
+template <typename T> void CPU::
+ORA(T addr)
+{
+	unsigned char value = addr.read(*this);
+
+	acc = acc | (value & 0xFF);
+	N = acc >> 7;
+	Z = acc == 0;
+	/*
+	A = A | M
+	P.N = A.7
+	P.Z = (A==0) ? 1:0
+	 */
+}
+
+template void CPU::ORA<Immediate>(Immediate);
+template void CPU::ORA<Address>(Address);
 
 } /* namespace emu */
 } /* namespace domahony */

@@ -85,8 +85,12 @@ public:
 	void INY();
 	template <typename T> void JMP(T addr);
 	template <typename T> void JSR(T addr);
-
 	template <typename T> void LDA(T addr);
+	template <typename T> void LDX(T addr);
+	template <typename T> void LDY(T addr);
+	template <typename T> void LSR(T addr);
+	void NOP();
+	template <typename T> void ORA(T addr);
 
 private:
 	unsigned short pc; //program counter;
