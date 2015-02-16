@@ -11,6 +11,11 @@
 #include "ASL.h"
 #include "BCC.h"
 #include "BIT.h"
+#include "CLEAROperations.h"
+#include "CMP.h"
+#include "CPX_Y.h"
+#include "DEC.h"
+#include "DEX_Y.h"
 #include <vector>
 #include <functional>
 
@@ -39,6 +44,16 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 	initBCS(fn);
 	initBEQ(fn);
 	initBIT(fn);
+	initBMI(fn);
+	initBNE(fn);
+	initBPL(fn);
+	initCLEAR(fn);
+	initCMP(fn);
+	initCPX(fn);
+	initCPY(fn);
+	initDEC(fn);
+	initDEX(fn);
+	initDEY(fn);
 
 	fn[0xa5] = [] (CPU& cpu) {
 
@@ -49,6 +64,36 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 		std::cout << "Acc Value: " << cpu.acc << std::endl;
 		return 1;
 	};
+
+}
+
+unsigned char CPU::
+get_flags() const {
+
+	unsigned char ret = 0;
+
+	if (N) ret |= 1;
+	ret <<=1;
+	if (V) ret |= 1;
+	ret <<=2;
+	if (B) ret |= 1;
+	ret <<=1;
+	if (D) ret |= 1;
+	ret <<=1;
+	if (I) ret |= 1;
+	ret <<=1;
+	if (Z) ret |= 1;
+	ret <<=1;
+	if (C) ret |= 1;
+
+	return ret;
+}
+
+void CPU::
+push(unsigned char b) {
+
+	write(0x100 | sp, b);
+	sp -= 1;
 
 }
 
@@ -153,7 +198,11 @@ getZpIdxWithX()
 Address CPU::
 getZpIdxWithY()
 {
+	unsigned char zp = read(pc++);
+	zp += y;
 
+	Address addr(zp, 0);
+	return addr;
 }
 
 Address CPU::
@@ -297,6 +346,177 @@ BIT(T addr)
 
 template void CPU::BIT<Address>(Address);
 
+template <typename T> void CPU::
+BMI(T addr)
+{
+	if (N) {
+		pc = addr.read(*this);
+		addr.set_branch();
+	}
+}
+
+template void CPU::BMI<Relative>(Relative);
+
+template <typename T> void CPU::
+BNE(T addr)
+{
+	if (!Z) {
+		pc = addr.read(*this);
+		addr.set_branch();
+	}
+}
+
+template void CPU::BNE<Relative>(Relative);
+
+template <typename T> void CPU::
+BPL(T addr)
+{
+	if (!N) {
+		pc = addr.read(*this);
+		addr.set_branch();
+	}
+}
+
+template void CPU::BPL<Relative>(Relative);
+
+void CPU::
+BRK()
+{
+	pc++;
+
+	unsigned char h = pc >> 8;
+	unsigned char l = pc & 0xFF;
+	push(h);
+	push(l);
+
+	unsigned char flags = get_flags();
+
+	push(flags |= 0x10);
+
+	l = read(0xFFFE);
+	h = read(0xFFFF);
+
+	pc = h << 8;
+	pc |= l;
+}
+
+template <typename T> void CPU::
+BVC(T addr)
+{
+	if (!V) {
+		pc = addr.read(*this);
+		addr.set_branch();
+	}
+}
+
+template void CPU::BVC<Relative>(Relative);
+
+template <typename T> void CPU::
+BVS(T addr)
+{
+	if (V) {
+		pc = addr.read(*this);
+		addr.set_branch();
+	}
+}
+
+template void CPU::BVS<Relative>(Relative);
+
+void CPU::
+CLC()
+{
+	C = 0;
+}
+void CPU::
+CLD()
+{
+	D = 0;
+}
+void CPU::
+CLI()
+{
+	I = 0;
+}
+void CPU::
+CLV()
+{
+	V = 0;
+}
+
+template <typename T> void CPU::
+CMP(T addr)
+{
+	unsigned char arg = addr.read(*this);
+	unsigned char t = acc - arg;
+
+	N = (t >> 7) & 0x1;
+	C = (acc >= arg);
+	Z = (t == 0);
+}
+
+template void CPU::CMP<Immediate>(Immediate);
+template void CPU::CMP<Address>(Address);
+
+template <typename T> void CPU::
+CPX(T addr)
+{
+	unsigned char arg = addr.read(*this);
+	unsigned char t = x - arg;
+
+	N = (t >> 7) & 0x1;
+	C = (x >= arg);
+	Z = (t == 0);
+}
+
+template void CPU::CPX<Immediate>(Immediate);
+template void CPU::CPX<Address>(Address);
+
+template <typename T> void CPU::
+CPY(T addr)
+{
+	unsigned char arg = addr.read(*this);
+	unsigned char t = y - arg;
+
+	N = (t >> 7) & 0x1;
+	C = (y >= arg);
+	Z = (t == 0);
+}
+
+template void CPU::CPY<Immediate>(Immediate);
+template void CPU::CPY<Address>(Address);
+
+template <typename T> void CPU::
+DEC(T addr)
+{
+	unsigned char arg = addr.read(*this);
+	arg--;
+	arg &= 0xFF;
+
+	N = (arg >> 7) & 0x1;
+	Z = (arg == 0);
+
+	addr.write(*this, arg);
+}
+
+template void CPU::DEC<Address>(Address);
+
+void CPU::
+DEX()
+{
+	x--;
+
+	Z = (x == 0);
+	N = (x >> 7) & 0x1;
+}
+
+void CPU::
+DEY()
+{
+	y--;
+
+	Z = (y == 0);
+	N = (y >> 7) & 0x1;
+}
+
 } /* namespace emu */
 } /* namespace domahony */
-

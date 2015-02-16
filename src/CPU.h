@@ -62,6 +62,23 @@ public:
 	template <typename T> void BCS(T addr);
 	template <typename T> void BEQ(T addr);
 	template <typename T> void BIT(T addr);
+	template <typename T> void BMI(T addr);
+	template <typename T> void BNE(T addr);
+	template <typename T> void BPL(T addr);
+	void BRK();
+	template <typename T> void BVC(T addr);
+	template <typename T> void BVS(T addr);
+	void CLC();
+	void CLD();
+	void CLI();
+	void CLV();
+	template <typename T> void CMP(T addr);
+	template <typename T> void CPX(T addr);
+	template <typename T> void CPY(T addr);
+	template <typename T> void DEC(T addr);
+	void DEX();
+	void DEY();
+
 	template <typename T> void LDA(T addr);
 
 private:
@@ -73,6 +90,9 @@ private:
 
 
 	void init();
+	void push(unsigned char b);
+	void pop();
+	unsigned char get_flags() const;
 
 };
 

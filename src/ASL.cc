@@ -35,21 +35,25 @@ initASL(std::function<int (domahony::emu::CPU&)> *fn)
 	// zero page, x
 	fn[0x16] = [](CPU& cpu) {
 
-		xxx
+		Address addr = cpu.getZpIdxWithX();
+		cpu.ASL<Address>(addr);
 		return 6;
 	};
 
 	// absolute
 	fn[0x0E] = [](CPU& cpu) {
 
-		xxx
+		Address addr = cpu.getAbsolute();
+		cpu.ASL<Address>(addr);
 		return 6;
+
 	};
 
 	// absolute X
 	fn[0x1E] = [](CPU& cpu) {
 
-		xxx
+		Address addr = cpu.getAbsoluteIdxWithX();
+		cpu.ASL<Address>(addr);
 		return 7;
 	};
 }
