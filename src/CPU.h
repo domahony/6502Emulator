@@ -100,6 +100,18 @@ public:
 	void RTI();
 	void RTS();
 	template <typename T> void SBC(T addr);
+	void SEC();
+	void SED();
+	void SEI();
+	template <typename T> void STA(T addr);
+	template <typename T> void STX(T addr);
+	template <typename T> void STY(T addr);
+	void TAX();
+	void TAY();
+	void TSX();
+	void TXA();
+	void TXS();
+	void TYA();
 
 private:
 	unsigned short pc; //program counter;

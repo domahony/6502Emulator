@@ -32,6 +32,10 @@
 #include "RTI.h"
 #include "RTS.h"
 #include "SBC.h"
+#include "STA.h"
+#include "STX_Y.h"
+#include "SETOperations.h"
+#include "TRANSFEROperations.h"
 #include <vector>
 #include <functional>
 
@@ -88,7 +92,11 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 	initRTI(fn);
 	initRTS(fn);
 	initSBC(fn);
-
+	initSET(fn);
+	initSTA(fn);
+	initSTX(fn);
+	initSTY(fn);
+	initTRANSFER(fn);
 }
 
 unsigned char CPU::
@@ -872,6 +880,95 @@ SBC(T addr)
 
 template void CPU::SBC<Immediate>(Immediate);
 template void CPU::SBC<Address>(Address);
+
+void CPU::
+SEC()
+{
+	C = true;
+}
+
+void CPU::
+SED()
+{
+	D = true;
+}
+
+void CPU::
+SEI()
+{
+	I = true;
+}
+
+template <typename T> void CPU::
+STA(T addr)
+{
+	addr.write(*this, acc);
+}
+
+template void CPU::STA<Address>(Address);
+
+template <typename T> void CPU::
+STX(T addr)
+{
+	addr.write(*this, x);
+}
+
+template void CPU::STX<Address>(Address);
+
+template <typename T> void CPU::
+STY(T addr)
+{
+	addr.write(*this, y);
+}
+
+template void CPU::STY<Address>(Address);
+
+void CPU::TAX()
+{
+	x = acc;
+	N = (x >> 7) & 0x1;
+	Z = (x == 0);
+	/*
+  X = A
+  P.N = X.7
+  P.Z = (X==0) ? 1:0
+	 */
+}
+
+void CPU::TAY()
+{
+	y = acc;
+	N = (y >> 7) & 0x1;
+	Z = (y == 0);
+
+}
+
+void CPU::TSX()
+{
+	x = sp;
+	N = (x >> 7) & 0x1;
+	Z = (x == 0);
+
+}
+
+void CPU::TXA()
+{
+	acc = x;
+	N = (acc >> 7) & 0x1;
+	Z = (acc == 0);
+}
+
+void CPU::TXS()
+{
+	sp = x;
+}
+
+void CPU::TYA()
+{
+	acc = y;
+	N = (acc >> 7) & 0x1;
+	Z = (acc == 0);
+}
 
 } /* namespace emu */
 } /* namespace domahony */
