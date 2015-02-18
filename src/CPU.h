@@ -91,6 +91,15 @@ public:
 	template <typename T> void LSR(T addr);
 	void NOP();
 	template <typename T> void ORA(T addr);
+	void PHA();
+	void PHP();
+	void PLA();
+	void PLP();
+	template <typename T> void ROL(T addr);
+	template <typename T> void ROR(T addr);
+	void RTI();
+	void RTS();
+	template <typename T> void SBC(T addr);
 
 private:
 	unsigned short pc; //program counter;
@@ -102,7 +111,7 @@ private:
 
 	void init();
 	void push(unsigned char b);
-	void pop();
+	unsigned char pop();
 	unsigned char get_flags() const;
 
 };

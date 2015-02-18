@@ -26,6 +26,12 @@
 #include "LSR.h"
 #include "NOP.h"
 #include "ORA.h"
+#include "Stack.h"
+#include "ROL.h"
+#include "ROR.h"
+#include "RTI.h"
+#include "RTS.h"
+#include "SBC.h"
 #include <vector>
 #include <functional>
 
@@ -76,6 +82,12 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 	initLSR(fn);
 	initNOP(fn);
 	initORA(fn);
+	initStack(fn);
+	initROL(fn);
+	initROR(fn);
+	initRTI(fn);
+	initRTS(fn);
+	initSBC(fn);
 
 }
 
@@ -107,6 +119,12 @@ push(unsigned char b) {
 	write(0x100 | sp, b);
 	sp -= 1;
 
+}
+
+unsigned char CPU::
+pop() {
+	++sp;
+	return read(0x100 | sp);
 }
 
 void CPU::
@@ -729,6 +747,131 @@ ORA(T addr)
 
 template void CPU::ORA<Immediate>(Immediate);
 template void CPU::ORA<Address>(Address);
+
+void CPU::
+PHA()
+{
+	push(acc);
+}
+void CPU::
+PHP()
+{
+	push(get_flags());
+}
+void CPU::
+PLA()
+{
+	acc = pop();
+	N = (acc >> 7) & 0x1;
+	Z = (acc == 0);
+}
+
+void CPU::
+PLP()
+{
+	unsigned char flags = pop();
+
+	N = (flags >> 7) & 0x1;
+	V = (flags >> 6) & 0x1;
+	B = (flags >> 4) & 0x1;
+	D = (flags >> 3) & 0x1;
+	I = (flags >> 2) & 0x1;
+	Z = (flags >> 1) & 0x1;
+	C = (flags >> 0) & 0x1;
+}
+
+template <typename T> void CPU::
+ROL(T addr)
+{
+	unsigned char value = addr.read(*this);
+
+	bool t = (value >> 7) & 0x1;
+	value = (value << 1) & 0xFE;
+	value = value | C;
+
+	C = t;
+	Z = (value == 0);
+	N = (value >> 7) & 0x1;
+
+	addr.write(*this, value);
+}
+
+template void CPU::ROL<Accumulator>(Accumulator);
+template void CPU::ROL<Address>(Address);
+
+template <typename T> void CPU::
+ROR(T addr)
+{
+	unsigned char value = addr.read(*this);
+
+	bool t = value & 0x1;
+	value = (value >> 1) & 0x7F;
+
+	value = value | (C ? 0x80 : 0x00);
+	C = t;
+	Z = (value == 0);
+	N = (value >> 7) & 0x1;
+
+	addr.write(*this, value);
+}
+
+template void CPU::ROR<Accumulator>(Accumulator);
+template void CPU::ROR<Address>(Address);
+
+void CPU::
+RTI()
+{
+	unsigned char flags = pop();
+	N = (flags >> 7) & 0x1;
+	V = (flags >> 6) & 0x1;
+	B = (flags >> 4) & 0x1;
+	D = (flags >> 3) & 0x1;
+	I = (flags >> 2) & 0x1;
+	Z = (flags >> 1) & 0x1;
+	C = (flags >> 0) & 0x1;
+
+	unsigned char l = pop();
+	unsigned char h = pop();
+
+	pc = h << 8;
+	pc |= l;
+}
+
+void CPU::
+RTS()
+{
+
+	unsigned char l = pop();
+	unsigned char h = pop();
+
+	pc = h << 8;
+	pc |= l;
+	++pc;
+}
+
+template <typename T> void CPU::
+SBC(T addr)
+{
+	unsigned char arg = addr.read(*this);
+
+	short t;
+	if (D) {
+		t = BCD(acc) - BCD(arg) - (C ? 0 : 1);
+		V = (t > 99 || t < 0) ? 1 : 0;
+	} else {
+		t = acc - arg - (C ? 0 : 1);
+		V = (t > 127 || t < -128) ? 1 : 0;
+	}
+
+	C = (t >= 0);
+	N = (t >> 7) & 0x1;
+	Z = (t == 0);
+
+	acc = t & 0xFF;
+}
+
+template void CPU::SBC<Immediate>(Immediate);
+template void CPU::SBC<Address>(Address);
 
 } /* namespace emu */
 } /* namespace domahony */
