@@ -38,12 +38,17 @@
 #include "TRANSFEROperations.h"
 #include <vector>
 #include <functional>
+#include <iostream>
 
 namespace domahony {
 namespace emu {
 
 using std::vector;
 using std::function;
+using std::cout;
+using std::endl;
+using std::hex;
+
 
 CPU::
 CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
@@ -138,9 +143,11 @@ pop() {
 void CPU::
 run() {
 
-	unsigned char op = read(pc++);
-	int tick = 0;
-	fn[op](*this);
+	while (true) {
+		unsigned char op = read(pc++);
+		int tick = 0;
+		fn[op](*this);
+	}
 }
 
 unsigned char CPU::
@@ -330,6 +337,8 @@ ADC(T addr)
 {
 	unsigned char arg = addr.read(*this);
 
+	cout << hex << pc << " ADC " << addr << endl;
+
 	unsigned short val = acc + arg + (C ? 1 : 0);
 
 	V = ((val >> 7) != (acc >> 7));
@@ -352,8 +361,9 @@ template void CPU::ADC<Address>(Address);
 template <typename T> void CPU::
 BCC(T addr)
 {
+	cout << hex << pc << " BCC " << addr << endl;
 	if (!C) {
-		pc = addr.read(*this);
+		pc += static_cast<char>(addr.read(*this));
 		addr.set_branch();
 	}
 }
@@ -363,6 +373,7 @@ template void CPU::BCC<Relative>(Relative);
 template <typename T> void CPU::
 BCS(T addr)
 {
+	cout << hex << pc << " BCS " << addr << endl;
 	if (C) {
 		pc = addr.read(*this);
 		addr.set_branch();
@@ -374,6 +385,7 @@ template void CPU::BCS<Relative>(Relative);
 template <typename T> void CPU::
 BEQ(T addr)
 {
+	cout << hex << pc << " BEQ " << addr << endl;
 	if (Z) {
 		pc = addr.read(*this);
 		addr.set_branch();
@@ -385,6 +397,7 @@ template void CPU::BEQ<Relative>(Relative);
 template <typename T> void CPU::
 BIT(T addr)
 {
+	cout << hex << pc << " BIT " << addr << endl;
 	unsigned char t  = acc & addr.read(*this) ;
 
 	N = (t >> 7) && 0x1;
@@ -403,6 +416,7 @@ template void CPU::BIT<Address>(Address);
 template <typename T> void CPU::
 BMI(T addr)
 {
+	cout << hex << pc << " BMI " << addr << endl;
 	if (N) {
 		pc = addr.read(*this);
 		addr.set_branch();
@@ -414,6 +428,7 @@ template void CPU::BMI<Relative>(Relative);
 template <typename T> void CPU::
 BNE(T addr)
 {
+	cout << hex << pc << " BNE " << addr << endl;
 	if (!Z) {
 		pc = addr.read(*this);
 		addr.set_branch();
@@ -425,6 +440,7 @@ template void CPU::BNE<Relative>(Relative);
 template <typename T> void CPU::
 BPL(T addr)
 {
+	cout << hex << pc << " BPL " << addr << endl;
 	if (!N) {
 		pc = addr.read(*this);
 		addr.set_branch();
@@ -436,6 +452,7 @@ template void CPU::BPL<Relative>(Relative);
 void CPU::
 BRK()
 {
+	cout << hex << pc << " BRK" << endl;
 	pc++;
 
 	unsigned char h = pc >> 8;
@@ -457,6 +474,7 @@ BRK()
 template <typename T> void CPU::
 BVC(T addr)
 {
+	cout << hex << pc << " BVC " << addr << endl;
 	if (!V) {
 		pc = addr.read(*this);
 		addr.set_branch();
@@ -468,6 +486,7 @@ template void CPU::BVC<Relative>(Relative);
 template <typename T> void CPU::
 BVS(T addr)
 {
+	cout << hex << pc << " BVS " << addr << endl;
 	if (V) {
 		pc = addr.read(*this);
 		addr.set_branch();
@@ -479,27 +498,32 @@ template void CPU::BVS<Relative>(Relative);
 void CPU::
 CLC()
 {
+	cout << hex << pc << " CLC" << endl;
 	C = 0;
 }
 void CPU::
 CLD()
 {
+	cout << hex << pc << " CLD" << endl;
 	D = 0;
 }
 void CPU::
 CLI()
 {
+	cout << hex << pc << " CLI" << endl;
 	I = 0;
 }
 void CPU::
 CLV()
 {
+	cout << hex << pc << " CLV" << endl;
 	V = 0;
 }
 
 template <typename T> void CPU::
 CMP(T addr)
 {
+	cout << hex << pc << " CMP " << addr << endl;
 	unsigned char arg = addr.read(*this);
 	unsigned char t = acc - arg;
 
@@ -514,6 +538,7 @@ template void CPU::CMP<Address>(Address);
 template <typename T> void CPU::
 CPX(T addr)
 {
+	cout << hex << pc << " CMP " << addr << endl;
 	unsigned char arg = addr.read(*this);
 	unsigned char t = x - arg;
 
@@ -528,6 +553,7 @@ template void CPU::CPX<Address>(Address);
 template <typename T> void CPU::
 CPY(T addr)
 {
+	cout << hex << pc << " CPY " << addr << endl;
 	unsigned char arg = addr.read(*this);
 	unsigned char t = y - arg;
 
@@ -542,6 +568,7 @@ template void CPU::CPY<Address>(Address);
 template <typename T> void CPU::
 DEC(T addr)
 {
+	cout << hex << pc << " DEC " << addr << endl;
 	unsigned char arg = addr.read(*this);
 	arg--;
 	arg &= 0xFF;
@@ -557,6 +584,7 @@ template void CPU::DEC<Address>(Address);
 void CPU::
 DEX()
 {
+	cout << hex << pc << " DEX " << endl;
 	x--;
 
 	Z = (x == 0);
@@ -566,6 +594,7 @@ DEX()
 void CPU::
 DEY()
 {
+	cout << hex << pc << " DEY " << endl;
 	y--;
 
 	Z = (y == 0);
@@ -575,6 +604,7 @@ DEY()
 template <typename T> void CPU::
 EOR(T addr)
 {
+	cout << hex << pc << " EOR " << addr << endl;
 	unsigned char arg = addr.read(*this);
 
 	acc ^= arg;
@@ -594,6 +624,7 @@ template void CPU::EOR<Address>(Address);
 template <typename T> void CPU::
 INC(T addr)
 {
+	cout << hex << pc << " INC " << addr << endl;
 	unsigned char arg = addr.read(*this);
 	arg++;
 	arg &= 0xFF;
@@ -609,6 +640,7 @@ template void CPU::INC<Address>(Address);
 void CPU::
 INX()
 {
+	cout << hex << pc << " INX " << endl;
 	x++;
 
 	Z = (x == 0);
@@ -618,6 +650,7 @@ INX()
 void CPU::
 INY()
 {
+	cout << hex << pc << " INY " << endl;
 	y++;
 
 	Z = (y == 0);
@@ -627,6 +660,7 @@ INY()
 template <typename T> void CPU::
 JMP(T addr)
 {
+	cout << hex << pc << " JMP " << addr << endl;
 	unsigned char low = addr.read(*this);
 
 	unsigned short a = addr.get_address();
@@ -641,6 +675,7 @@ template void CPU::JMP<Address>(Address);
 template <typename T> void CPU::
 JSR(T addr)
 {
+	cout << hex << pc << " JSR " << addr << endl;
 	unsigned short a = addr.get_address();
 
 	unsigned char pc_h = (pc - 1) >> 8 && 0xFF;
@@ -659,6 +694,8 @@ LDA(T addr)
 {
 	acc = addr.read(*this);
 
+	cout << hex << pc << " LDA " << addr << endl;
+
 	N = acc >> 7;
 	Z = (acc == 0);
 
@@ -675,6 +712,7 @@ template void CPU::LDA<Address>(Address);
 template <typename T> void CPU::
 LDX(T addr)
 {
+	cout << hex << pc << " LDX " << addr << endl;
 	x = addr.read(*this);
 
 	N = x >> 7;
@@ -695,6 +733,7 @@ template <typename T> void CPU::
 LDY(T addr)
 {
 	y = addr.read(*this);
+	cout << hex << pc << " LDY " << addr << endl;
 
 	N = y >> 7;
 	Z = (y == 0);
@@ -713,6 +752,7 @@ template <typename T> void CPU::
 LSR(T addr)
 {
 	unsigned char val = addr.read(*this);
+	cout << hex << pc << " LSR " << addr << endl;
 
 	N = 0;
 	C = val & 0x1;
@@ -735,6 +775,7 @@ template void CPU::LSR<Accumulator>(Accumulator);
 void CPU::
 NOP()
 {
+	cout << hex << pc << " NOP" << endl;
 	// do nothing
 }
 
@@ -742,6 +783,7 @@ template <typename T> void CPU::
 ORA(T addr)
 {
 	unsigned char value = addr.read(*this);
+	cout << hex << pc << " ORA " << addr << endl;
 
 	acc = acc | (value & 0xFF);
 	N = acc >> 7;
@@ -759,16 +801,19 @@ template void CPU::ORA<Address>(Address);
 void CPU::
 PHA()
 {
+	cout << hex << pc << " PHA " << endl;
 	push(acc);
 }
 void CPU::
 PHP()
 {
+	cout << hex << pc << " PHP " << endl;
 	push(get_flags());
 }
 void CPU::
 PLA()
 {
+	cout << hex << pc << " PLA " << endl;
 	acc = pop();
 	N = (acc >> 7) & 0x1;
 	Z = (acc == 0);
@@ -777,6 +822,7 @@ PLA()
 void CPU::
 PLP()
 {
+	cout << hex << pc << " PLP " << endl;
 	unsigned char flags = pop();
 
 	N = (flags >> 7) & 0x1;
@@ -791,6 +837,7 @@ PLP()
 template <typename T> void CPU::
 ROL(T addr)
 {
+	cout << hex << pc << " ROL " << addr << endl;
 	unsigned char value = addr.read(*this);
 
 	bool t = (value >> 7) & 0x1;
@@ -810,6 +857,7 @@ template void CPU::ROL<Address>(Address);
 template <typename T> void CPU::
 ROR(T addr)
 {
+	cout << hex << pc << " ROR " << addr << endl;
 	unsigned char value = addr.read(*this);
 
 	bool t = value & 0x1;
@@ -884,6 +932,7 @@ template void CPU::SBC<Address>(Address);
 void CPU::
 SEC()
 {
+	cout << hex << pc << " SEC " << endl;
 	C = true;
 }
 
@@ -968,6 +1017,26 @@ void CPU::TYA()
 	acc = y;
 	N = (acc >> 7) & 0x1;
 	Z = (acc == 0);
+}
+
+std::ostream & operator<<(std::ostream& output, const Address& addr) {
+		output << std::hex << addr.get_address() << std::dec;
+		return output;
+}
+
+std::ostream & operator<<(std::ostream& output, const Immediate& addr) {
+		output << std::hex << static_cast<int>(addr.read()) << std::dec;
+		return output;
+}
+
+std::ostream & operator<<(std::ostream& output, const Accumulator& addr) {
+		output << "ACC";
+		return output;
+}
+
+std::ostream & operator<<(std::ostream& output, const Relative& addr) {
+		output << std::hex << static_cast<int>(addr.read());
+		return output;
 }
 
 } /* namespace emu */

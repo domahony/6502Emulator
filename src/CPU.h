@@ -12,6 +12,7 @@
 #include <memory>
 #include <vector>
 #include <functional>
+#include <iostream>
 
 namespace domahony {
 namespace emu {
@@ -147,8 +148,9 @@ public:
 
 	Address(unsigned char low, unsigned char high) : boundary(false)
 	{
+		addr = high;
 		addr <<= 8;
-		addr &= low;
+		addr |= low;
 	}
 
 	Address(unsigned char low, unsigned char high, char offset) : Address(low, high)
@@ -180,6 +182,7 @@ public:
 
 	}
 
+
 private:
 	unsigned short addr;
 	bool boundary;
@@ -187,11 +190,14 @@ private:
 
 class Immediate {
 public:
-	Immediate(unsigned char val) : val(val) {
-
+	Immediate(unsigned char val) : val(val){
 	}
 
 	unsigned char read(domahony::emu::CPU& c) const {
+		return val;
+	}
+
+	unsigned char read() const {
 		return val;
 	}
 
@@ -206,7 +212,11 @@ public:
 	}
 
 	unsigned char read(domahony::emu::CPU& c) const {
-		return addr;
+		return read();
+	}
+
+	unsigned char read() const {
+		return offset;
 	}
 
 	void set_branch() {
@@ -231,6 +241,11 @@ private:
 	const unsigned char addr;
 	bool branch;
 };
+
+std::ostream & operator<<(std::ostream& output, const Address& addr);
+std::ostream & operator<<(std::ostream& output, const Immediate& addr);
+std::ostream & operator<<(std::ostream& output, const Accumulator& addr);
+std::ostream & operator<<(std::ostream& output, const Relative& addr);
 
 } /* namespace emu */
 } /* namespace domahony */
