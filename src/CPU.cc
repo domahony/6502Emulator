@@ -11,6 +11,7 @@
 #include "ASL.h"
 #include "BCC.h"
 #include "BIT.h"
+#include "BRK.h"
 #include "CLEAROperations.h"
 #include "CMP.h"
 #include "CPX_Y.h"
@@ -72,6 +73,7 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 	initBMI(fn);
 	initBNE(fn);
 	initBPL(fn);
+	initBRK(fn);
 	initCLEAR(fn);
 	initCMP(fn);
 	initCPX(fn);
@@ -292,6 +294,7 @@ getZpIndirectIdxWithY()
 template <typename T> void CPU::
 AND(T addr)
 {
+	cout << hex << pc << " AND " << addr << endl;
 	unsigned char value = addr.read(*this);
 
 	acc = acc & (value & 0xFF);
@@ -310,6 +313,7 @@ template void CPU::AND<Address>(Address);
 template <typename T> void CPU::
 ASL(T addr)
 {
+	cout << hex << pc << " ASL " << addr << endl;
 	unsigned char value = addr.read(*this);
 
 	C = (value >> 7) & 0x1;
@@ -469,6 +473,7 @@ BRK()
 
 	pc = h << 8;
 	pc |= l;
+	std::exit(0);
 }
 
 template <typename T> void CPU::
@@ -661,14 +666,7 @@ template <typename T> void CPU::
 JMP(T addr)
 {
 	cout << hex << pc << " JMP " << addr << endl;
-	unsigned char low = addr.read(*this);
-
-	unsigned short a = addr.get_address();
-
-	unsigned char high = read(a);
-
-	pc = high << 8;
-	pc |= low;
+	pc = addr.get_address();
 }
 template void CPU::JMP<Address>(Address);
 
@@ -877,6 +875,7 @@ template void CPU::ROR<Address>(Address);
 void CPU::
 RTI()
 {
+	cout << hex << pc << " RTI " << endl;
 	unsigned char flags = pop();
 	N = (flags >> 7) & 0x1;
 	V = (flags >> 6) & 0x1;
@@ -897,6 +896,7 @@ void CPU::
 RTS()
 {
 
+	cout << hex << pc << " RTS " << endl;
 	unsigned char l = pop();
 	unsigned char h = pop();
 
@@ -908,6 +908,7 @@ RTS()
 template <typename T> void CPU::
 SBC(T addr)
 {
+	cout << hex << pc << " SBC " << addr << endl;
 	unsigned char arg = addr.read(*this);
 
 	short t;
@@ -939,18 +940,21 @@ SEC()
 void CPU::
 SED()
 {
+	cout << hex << pc << " SED " << endl;
 	D = true;
 }
 
 void CPU::
 SEI()
 {
+	cout << hex << pc << " SEI " << endl;
 	I = true;
 }
 
 template <typename T> void CPU::
 STA(T addr)
 {
+	cout << hex << pc << " STA " << addr << endl;
 	addr.write(*this, acc);
 }
 
@@ -959,6 +963,7 @@ template void CPU::STA<Address>(Address);
 template <typename T> void CPU::
 STX(T addr)
 {
+	cout << hex << pc << " STX " << addr << endl;
 	addr.write(*this, x);
 }
 
@@ -967,6 +972,7 @@ template void CPU::STX<Address>(Address);
 template <typename T> void CPU::
 STY(T addr)
 {
+	cout << hex << pc << " STY " << addr << endl;
 	addr.write(*this, y);
 }
 
@@ -974,6 +980,7 @@ template void CPU::STY<Address>(Address);
 
 void CPU::TAX()
 {
+	cout << hex << pc << " TAX " << endl;
 	x = acc;
 	N = (x >> 7) & 0x1;
 	Z = (x == 0);
@@ -986,6 +993,7 @@ void CPU::TAX()
 
 void CPU::TAY()
 {
+	cout << hex << pc << " TAY " << endl;
 	y = acc;
 	N = (y >> 7) & 0x1;
 	Z = (y == 0);
@@ -994,6 +1002,7 @@ void CPU::TAY()
 
 void CPU::TSX()
 {
+	cout << hex << pc << " TSX " << endl;
 	x = sp;
 	N = (x >> 7) & 0x1;
 	Z = (x == 0);
@@ -1002,6 +1011,7 @@ void CPU::TSX()
 
 void CPU::TXA()
 {
+	cout << hex << pc << " TXA " << endl;
 	acc = x;
 	N = (acc >> 7) & 0x1;
 	Z = (acc == 0);
@@ -1009,11 +1019,13 @@ void CPU::TXA()
 
 void CPU::TXS()
 {
+	cout << hex << pc << " TXS " << endl;
 	sp = x;
 }
 
 void CPU::TYA()
 {
+	cout << hex << pc << " TYA " << endl;
 	acc = y;
 	N = (acc >> 7) & 0x1;
 	Z = (acc == 0);
