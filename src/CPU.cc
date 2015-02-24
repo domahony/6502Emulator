@@ -40,6 +40,7 @@
 #include <vector>
 #include <functional>
 #include <iostream>
+#include <fstream>
 
 namespace domahony {
 namespace emu {
@@ -50,6 +51,7 @@ using std::cout;
 using std::endl;
 using std::hex;
 
+static void dump(const vector<unsigned char>&);
 
 CPU::
 CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
@@ -61,7 +63,7 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 
 	std::cout << "Initial PC: " << std::hex << pc << std::endl;
 
-	ram.resize(0xFFFF);
+	ram.resize(0xFFFF, 0);
 
 	initADC(fn);
 	initAND(fn);
@@ -149,6 +151,8 @@ run() {
 		unsigned char op = read(pc++);
 		int tick = 0;
 		fn[op](*this);
+
+		dump(ram);
 	}
 }
 
@@ -167,7 +171,10 @@ void CPU::
 write(unsigned short addr, unsigned char val)
 {
 	if (addr < 0xA000) {
-		ram[addr] == val;
+
+		cout << "Writing " << hex <<  static_cast<int>(addr) << " " << static_cast<int>(val) << endl;
+
+		ram[addr] = val;
 	}
 }
 
@@ -379,7 +386,7 @@ BCS(T addr)
 {
 	cout << hex << pc << " BCS " << addr << endl;
 	if (C) {
-		pc = addr.read(*this);
+		pc += static_cast<char>(addr.read(*this));
 		addr.set_branch();
 	}
 }
@@ -391,7 +398,7 @@ BEQ(T addr)
 {
 	cout << hex << pc << " BEQ " << addr << endl;
 	if (Z) {
-		pc = addr.read(*this);
+		pc += static_cast<char>(addr.read(*this));
 		addr.set_branch();
 	}
 }
@@ -404,8 +411,8 @@ BIT(T addr)
 	cout << hex << pc << " BIT " << addr << endl;
 	unsigned char t  = acc & addr.read(*this) ;
 
-	N = (t >> 7) && 0x1;
-	V = (t >> 6) && 0x1;
+	N = (t >> 7) & 0x1;
+	V = (t >> 6) & 0x1;
 	Z = (t == 0);
 	/*
 	  t = A & M
@@ -422,7 +429,7 @@ BMI(T addr)
 {
 	cout << hex << pc << " BMI " << addr << endl;
 	if (N) {
-		pc = addr.read(*this);
+		pc += static_cast<char>(addr.read(*this));
 		addr.set_branch();
 	}
 }
@@ -430,23 +437,23 @@ BMI(T addr)
 template void CPU::BMI<Relative>(Relative);
 
 template <typename T> void CPU::
-BNE(T addr)
+BNE(T& addr)
 {
 	cout << hex << pc << " BNE " << addr << endl;
 	if (!Z) {
-		pc = addr.read(*this);
+		pc += static_cast<char>(addr.read(*this));
 		addr.set_branch();
 	}
 }
 
-template void CPU::BNE<Relative>(Relative);
+template void CPU::BNE<Relative>(Relative&);
 
 template <typename T> void CPU::
 BPL(T addr)
 {
 	cout << hex << pc << " BPL " << addr << endl;
 	if (!N) {
-		pc = addr.read(*this);
+		pc += static_cast<char>(addr.read(*this));
 		addr.set_branch();
 	}
 }
@@ -481,7 +488,7 @@ BVC(T addr)
 {
 	cout << hex << pc << " BVC " << addr << endl;
 	if (!V) {
-		pc = addr.read(*this);
+		pc += static_cast<char>(addr.read(*this));
 		addr.set_branch();
 	}
 }
@@ -493,7 +500,7 @@ BVS(T addr)
 {
 	cout << hex << pc << " BVS " << addr << endl;
 	if (V) {
-		pc = addr.read(*this);
+		pc += static_cast<char>(addr.read(*this));
 		addr.set_branch();
 	}
 }
@@ -676,8 +683,8 @@ JSR(T addr)
 	cout << hex << pc << " JSR " << addr << endl;
 	unsigned short a = addr.get_address();
 
-	unsigned char pc_h = (pc - 1) >> 8 && 0xFF;
-	unsigned char pc_l = (pc - 1) && 0xFF;
+	unsigned char pc_h = (pc - 1) >> 8 & 0xFF;
+	unsigned char pc_l = (pc - 1) & 0xFF;
 
 	push(pc_h);
 	push(pc_l);
@@ -1049,6 +1056,19 @@ std::ostream & operator<<(std::ostream& output, const Accumulator& addr) {
 std::ostream & operator<<(std::ostream& output, const Relative& addr) {
 		output << std::hex << static_cast<int>(addr.read());
 		return output;
+}
+
+static void
+dump(const vector<unsigned char>& r)
+{
+	std::fstream fs;
+	fs.open ("/tmp/test.txt", std::fstream::out|std::fstream::binary);
+
+	for (auto c = r.begin(); c != r.end(); ++c) {
+		fs << *c;
+	}
+
+	fs.close();
 }
 
 } /* namespace emu */

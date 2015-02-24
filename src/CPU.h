@@ -65,7 +65,7 @@ public:
 	template <typename T> void BEQ(T addr);
 	template <typename T> void BIT(T addr);
 	template <typename T> void BMI(T addr);
-	template <typename T> void BNE(T addr);
+	template <typename T> void BNE(T& addr);
 	template <typename T> void BPL(T addr);
 	void BRK();
 	template <typename T> void BVC(T addr);
@@ -122,7 +122,6 @@ private:
 	unsigned char y; // Y register
 
 
-	void init();
 	void push(unsigned char b);
 	unsigned char pop();
 	unsigned char get_flags() const;
@@ -207,7 +206,7 @@ private:
 
 class Relative {
 public:
-	Relative(unsigned short pc, char offset) : pc(pc), offset(offset), addr(pc + offset), branch(false) {
+	Relative(signed short pc, char offset) : pc(pc), offset(offset), addr(pc + offset), branch(false) {
 
 	}
 
