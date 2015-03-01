@@ -18,6 +18,7 @@ using domahony::emu::ROM;
 using domahony::emu::CPU;
 
 int main(void) {
+	// problem at a89b
 	CPU cpu(std::shared_ptr<ROM>(new ROM("/home/domahony/Projects/atariROMs/REVA.ROM")));
 
 	cpu.run();
