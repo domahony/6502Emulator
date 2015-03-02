@@ -56,8 +56,8 @@ static void dump(const vector<unsigned char>&);
 CPU::
 CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 
-	unsigned char low = read(0xFFFa);
-	unsigned char high = read(0xFFFa + 1);
+	unsigned char low = read(0xFFFc);
+	unsigned char high = read(0xFFFc + 1);
 
 	pc = (high << 8) + low;
 
@@ -162,7 +162,7 @@ read(unsigned short addr)
 	if (addr < 0xA000) {
 		return ram[addr];
 	} else {
-		return rom->fetch(addr - 0xA000);
+		return rom->fetch(addr - 0xD800);
 	}
 }
 
