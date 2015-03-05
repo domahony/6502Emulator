@@ -8,7 +8,7 @@
 #ifndef CPU_H_
 #define CPU_H_
 
-#include "ROM.h"
+#include "AddressSpace.h"
 #include <memory>
 #include <vector>
 #include <functional>
@@ -28,16 +28,13 @@ class CPU {
 friend class Accumulator;
 
 public:
-	CPU(std::shared_ptr<domahony::emu::ROM> rom);
+	CPU(const AddressSpace&);
 
 	virtual ~CPU() {
 
 	}
 
 	void run();
-
-	std::shared_ptr<domahony::emu::ROM> rom;
-	std::vector<unsigned char> ram;
 
 	unsigned char read(unsigned short);
 	void write(unsigned short, unsigned char);
@@ -121,11 +118,11 @@ private:
 	unsigned char x; // X register
 	unsigned char y; // Y register
 
-
 	void push(unsigned char b);
 	unsigned char pop();
 	unsigned char get_flags() const;
 
+	AddressSpace address_space;
 };
 
 class Accumulator {

@@ -54,7 +54,7 @@ using std::hex;
 static void dump(const vector<unsigned char>&);
 
 CPU::
-CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
+CPU(const AddressSpace& as) : address_space(as) {
 
 	unsigned char low = read(0xFFFc);
 	unsigned char high = read(0xFFFc + 1);
@@ -62,8 +62,6 @@ CPU(std::shared_ptr<domahony::emu::ROM> rom) : rom(rom) {
 	pc = (high << 8) + low;
 
 	std::cout << "Initial PC: " << std::hex << pc << std::endl;
-
-	ram.resize(0xFFFF, 0);
 
 	initADC(fn);
 	initAND(fn);
@@ -151,31 +149,22 @@ run() {
 		unsigned char op = read(pc++);
 		int tick = 0;
 		fn[op](*this);
-
-		dump(ram);
 	}
 }
 
 unsigned char CPU::
 read(unsigned short addr)
 {
-	if (addr < 0xA000) {
-		return ram[addr];
-	} else {
-		return rom->fetch(addr - 0xD800);
-	}
+	return address_space.read(addr);
 }
 
 
 void CPU::
 write(unsigned short addr, unsigned char val)
 {
-	if (addr < 0xA000) {
+	cout << "Writing " << hex <<  static_cast<int>(addr) << " " << static_cast<int>(val) << endl;
 
-		cout << "Writing " << hex <<  static_cast<int>(addr) << " " << static_cast<int>(val) << endl;
-
-		ram[addr] = val;
-	}
+	address_space.write(addr, val);
 }
 
 unsigned char

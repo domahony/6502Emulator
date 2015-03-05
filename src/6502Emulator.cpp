@@ -10,16 +10,19 @@
 
 #include <iostream>
 #include <memory>
-#include "ROM.h"
+#include "AddressSpace.h"
 #include "CPU.h"
 
 using namespace std;
-using domahony::emu::ROM;
 using domahony::emu::CPU;
+using domahony::emu::AddressSpace;
 
 int main(void) {
-	// problem at a89b
-	CPU cpu(std::shared_ptr<ROM>(new ROM("/home/domahony/Projects/atariROMs/ATARIOSB.ROM")));
+
+	//CPU cpu(std::shared_ptr<ROM>(new ROM("/home/domahony/Projects/atariROMs/ATARIOSB.ROM")));
+
+	AddressSpace address_space;
+	CPU cpu(address_space);
 
 	cpu.run();
 }
