@@ -5,14 +5,31 @@
  *      Author: domahony
  */
 
+#include <iostream>
 #include "AddressSpace.h"
+#include "ROM.h"
+#include "RAM.h"
 
 namespace domahony {
 namespace emu {
 
 using std::shared_ptr;
 
-AddressSpace::AddressSpace() {
+AddressSpace::AddressSpace() :
+os(BusHolder(
+		shared_ptr<ROM>(new ROM("/home/domahony/Projects/atariROMs/ATARIOSB.ROM")),
+		0xD800)),
+cartridgeA(BusHolder(
+		shared_ptr<ROM>(new ROM("/home/domahony/Projects/atariROMs/REVA.ROM")),
+		0xA000)),
+ram(BusHolder(
+		shared_ptr<RAM>(new RAM(0x8000)),
+		0x0
+		)),
+cartridgeB(BusHolder(
+		shared_ptr<RAM>(new RAM(0xA000 - 0x8000)),
+		0x8000))
+{
 
 }
 
@@ -20,7 +37,7 @@ AddressSpace::~AddressSpace() {
 
 }
 
-shared_ptr<Bus> AddressSpace::
+AddressSpace::BusHolder AddressSpace::
 get_bus(unsigned short addr) const {
 
 	if (addr < 0x8000) {
@@ -43,7 +60,7 @@ get_bus(unsigned short addr) const {
 
 }
 
-shared_ptr<Bus> AddressSpace::
+AddressSpace::BusHolder AddressSpace::
 get_bus(unsigned short addr) {
 
 	if (addr < 0x8000) {
@@ -69,15 +86,24 @@ get_bus(unsigned short addr) {
 unsigned char AddressSpace::
 read(unsigned short addr) const
 {
-	shared_ptr<Bus> bus = get_bus(addr);
-	return bus->read(addr);
+	BusHolder bh = get_bus(addr);
+
+	if (!bh.bus) {
+		std::cout << "Attempt to read unknown!! " << addr << std::endl;
+	}
+
+	return bh.bus->read(addr - bh.offset);
 }
 
 void AddressSpace::
 write(unsigned short addr, unsigned char val)
 {
-	shared_ptr<Bus> bus = get_bus(addr);
-	bus->write(addr, val);
+	BusHolder bh = get_bus(addr);
+
+	if (!bh.bus) {
+		std::cout << "Attempt to write unknown!! " << addr << std::endl;
+	}
+	bh.bus->write(addr - bh.offset, val);
 }
 
 } /* namespace emu */

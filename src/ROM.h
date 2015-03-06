@@ -8,6 +8,7 @@
 #ifndef ROM_H_
 #define ROM_H_
 
+#include "Bus.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -18,13 +19,17 @@ namespace emu {
 using std::string;
 using std::vector;
 
-class ROM {
+class ROM : public Bus {
 public:
 	ROM(const string&);
 	virtual ~ROM();
 
-	unsigned char fetch(unsigned short addr) {
+	unsigned char read(unsigned short addr) const {
 		return rom.at(addr & mask);
+	}
+
+	void write(unsigned short addr, unsigned char val) {
+
 	}
 
 private:
