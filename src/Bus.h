@@ -11,12 +11,13 @@
 namespace domahony {
 namespace emu {
 
-class Bus {
+template<class T>
+class Bus : public T {
 public:
 	Bus();
 
-	virtual unsigned char read(unsigned short addr) const = 0;
-	virtual void write(unsigned short, unsigned char) = 0;
+	unsigned char read(unsigned short addr) const;
+	void write(unsigned short, unsigned char);
 
 	virtual ~Bus();
 };

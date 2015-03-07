@@ -9,6 +9,7 @@
 #include "AddressSpace.h"
 #include "ROM.h"
 #include "RAM.h"
+#include <AddressSpace.h>
 
 namespace domahony {
 namespace emu {
@@ -16,20 +17,19 @@ namespace emu {
 using std::shared_ptr;
 
 AddressSpace::AddressSpace() :
-os(BusHolder(
-		shared_ptr<ROM>(new ROM("/home/domahony/Projects/atariROMs/ATARIOSB.ROM")),
-		0xD800)),
-cartridgeA(BusHolder(
-		shared_ptr<ROM>(new ROM("/home/domahony/Projects/atariROMs/REVA.ROM")),
-		0xA000)),
-ram(BusHolder(
-		shared_ptr<RAM>(new RAM(0x8000)),
-		0x0
-		)),
-cartridgeB(BusHolder(
-		shared_ptr<RAM>(new RAM(0xA000 - 0x8000)),
-		0x8000))
-{
+		os(
+				BusHolder(
+						shared_ptr<ROM>(
+								new ROM(
+										"/home/domahony/Projects/atariROMs/ATARIOSB.ROM")),
+						0xD800)), cartridgeA(
+				BusHolder(
+						shared_ptr<ROM>(
+								new ROM(
+										"/home/domahony/Projects/atariROMs/REVA.ROM")),
+						0xA000)), ram(
+				BusHolder(shared_ptr<RAM>(new RAM(0x8000)), 0x0)), cartridgeB(
+				BusHolder(shared_ptr<RAM>(new RAM(0xA000 - 0x8000)), 0x8000)) {
 
 }
 
@@ -37,8 +37,8 @@ AddressSpace::~AddressSpace() {
 
 }
 
-AddressSpace::BusHolder AddressSpace::
-get_bus(unsigned short addr) const {
+template<class T>
+Bus<T> AddressSpace::get_bus(unsigned short addr) const {
 
 	if (addr < 0x8000) {
 		return ram;
@@ -60,8 +60,8 @@ get_bus(unsigned short addr) const {
 
 }
 
-AddressSpace::BusHolder AddressSpace::
-get_bus(unsigned short addr) {
+template<class T>
+Bus<T> AddressSpace::get_bus(unsigned short addr) {
 
 	if (addr < 0x8000) {
 		return ram;
@@ -83,27 +83,18 @@ get_bus(unsigned short addr) {
 
 }
 
-unsigned char AddressSpace::
-read(unsigned short addr) const
-{
-	BusHolder bh = get_bus(addr);
+template<class T>
+unsigned char AddressSpace::read(unsigned short addr) const {
+	Bus<T> bus = get_bus(addr);
 
-	if (!bh.bus) {
-		std::cout << "Attempt to read unknown!! " << addr << std::endl;
-	}
-
-	return bh.bus->read(addr - bh.offset);
+	return bus.read(addr - bus.offset);
 }
 
-void AddressSpace::
-write(unsigned short addr, unsigned char val)
-{
-	BusHolder bh = get_bus(addr);
+template<class T>
+void AddressSpace::write(unsigned short addr, unsigned char val) {
+	Bus<T> bus = get_bus(addr);
 
-	if (!bh.bus) {
-		std::cout << "Attempt to write unknown!! " << addr << std::endl;
-	}
-	bh.bus->write(addr - bh.offset, val);
+	bus.write(addr - bus.offset, val);
 }
 
 } /* namespace emu */

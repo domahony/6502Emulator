@@ -16,21 +16,6 @@ namespace emu {
 
 class AddressSpace {
 
-struct BusHolder {
-
-	BusHolder(std::shared_ptr<Bus> bus, int offset) : bus(bus), offset(offset)
-	{
-
-	}
-
-	BusHolder() : bus(0), offset(0) {
-
-	}
-
-	std::shared_ptr<Bus> bus;
-	int offset;
-};
-
 public:
 	AddressSpace();
 
@@ -40,30 +25,21 @@ public:
 	virtual ~AddressSpace();
 
 private:
-	BusHolder ram;
-	BusHolder cartridgeB;
-	BusHolder cartridgeA;
-	BusHolder gtia;
-	BusHolder pokey;
-	BusHolder pia;
-	BusHolder antic;
-	BusHolder os;
-	/*
-	std::shared_ptr<Bus> ram;
-	std::shared_ptr<Bus> cartridgeB;
-	std::shared_ptr<Bus> cartridgeA;
-	std::shared_ptr<Bus> gtia;
-	std::shared_ptr<Bus> pokey;
-	std::shared_ptr<Bus> pia;
-	std::shared_ptr<Bus> antic;
-	std::shared_ptr<Bus> os;
-	*/
+	Bus<RAM> ram;
+	Bus<ROM> cartridgeB;
+	Bus<ROM> cartridgeA;
+	Bus<GTIA> gtia;
+	Bus<Pokey> pokey;
+	Bus<PIA> pia;
+	Bus<ANTIC> antic;
+	Bus<ROM> os;
 
-	BusHolder get_bus(unsigned short);
-	BusHolder get_bus(unsigned short) const;
+	template<class T> Bus<T> get_bus(unsigned short);
+	template<class T> Bus<T> get_bus(unsigned short) const;
 };
 
 } /* namespace emu */
 } /* namespace domahony */
 
 #endif /* ADDRESSSPACE_H_ */
+
