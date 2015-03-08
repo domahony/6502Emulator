@@ -16,6 +16,71 @@ namespace emu {
 
 using std::shared_ptr;
 
+template<unsigned short N> struct select {typedef domahony::emu::RAM result; };
+template<> struct select<7> {typedef domahony::emu::ROM result; };
+template<> struct select<6> {typedef domahony::emu::ANTIC result; };
+template<> struct select<5> {typedef domahony::emu::PIA result; };
+template<> struct select<4> {typedef domahony::emu::Pokey result; };
+template<> struct select<3> {typedef domahony::emu::GTIA result; };
+template<> struct select<2> {typedef domahony::emu::ROM result; };
+template<> struct select<1> {typedef domahony::emu::ROM result; };
+template<> struct select<0> {typedef domahony::emu::RAM result; };
+
+template<unsigned short N>
+struct BusX
+{
+	unsigned short offsets[] = {
+	0xD800,
+	0xD400,
+	0xD300,
+	0xD200,
+	0xD000,
+	0xA000,
+	0x8000,
+	0 };
+
+	enum{D = (N > offsets[7] ? 7 :
+			(N > offsets[6] ? 6 :
+			(N > offsets[5] ? 5 :
+			(N > offsets[4] ? 4 :
+			(N > offsets[3] ? 3 :
+			(N > offsets[2] ? 2 :
+			(N > offsets[1] ? 1 :
+			0)))))))
+	};
+
+	enum{D = (N > 0xD800 ? 0xD800 :
+			(N > 0xD400 ? 0xD400 :
+			(N > 0xD300 ? 0xD300 :
+			(N > 0xD200 ? 0xD200 :
+			(N > 0xD000 ? 0xD000 :
+			(N > 0xA000 ? 0xA000 :
+			(N > 0x8000 ? 0x8000 :
+			0)))))))
+	};
+
+	typedef typename select<D>::result value_type;
+	unsigned short offset = D;
+
+};
+
+template<class T>
+class Bus
+{
+public:
+	unsigned char read(unsigned short addr) const {
+		return value.read(addr - offset);
+	}
+
+	void write(unsigned short addr, unsigned char val) {
+			value.write(addr - offset, val);
+	}
+
+private:
+	unsigned short offset;
+	typename T::value_type value;
+};
+
 AddressSpace::AddressSpace() :
 		os(
 				BusHolder(
@@ -31,6 +96,11 @@ AddressSpace::AddressSpace() :
 				BusHolder(shared_ptr<RAM>(new RAM(0x8000)), 0x0)), cartridgeB(
 				BusHolder(shared_ptr<RAM>(new RAM(0xA000 - 0x8000)), 0x8000)) {
 
+	auto x = 255;
+
+	Bus<BusX<x>> bus;
+	auto zz = bus.read(x);
+	bus.write(x, zz);
 }
 
 AddressSpace::~AddressSpace() {
