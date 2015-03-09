@@ -9,6 +9,7 @@
 #define ADDRESSSPACE_H_
 
 #include <memory>
+#include <vector>
 #include "Bus.h"
 
 namespace domahony {
@@ -33,6 +34,8 @@ private:
 	Bus<PIA> pia;
 	Bus<ANTIC> antic;
 	Bus<ROM> os;
+
+	std::vector<Bus<BusX<T>>> buses;
 
 	template<class T> Bus<T> get_bus(unsigned short);
 	template<class T> Bus<T> get_bus(unsigned short) const;

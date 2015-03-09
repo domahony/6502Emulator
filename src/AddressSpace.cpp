@@ -60,7 +60,7 @@ struct BusX
 	};
 
 	typedef typename select<D>::result value_type;
-	unsigned short offset = D;
+	unsigned short offset = offsets[D];
 
 };
 
@@ -77,11 +77,13 @@ public:
 	}
 
 private:
-	unsigned short offset;
+	unsigned short offset = T::offset;
 	typename T::value_type value;
 };
 
-AddressSpace::AddressSpace() :
+AddressSpace::AddressSpace()
+
+		/*
 		os(
 				BusHolder(
 						shared_ptr<ROM>(
@@ -95,12 +97,17 @@ AddressSpace::AddressSpace() :
 						0xA000)), ram(
 				BusHolder(shared_ptr<RAM>(new RAM(0x8000)), 0x0)), cartridgeB(
 				BusHolder(shared_ptr<RAM>(new RAM(0xA000 - 0x8000)), 0x8000)) {
-
+		*/
+{
 	auto x = 255;
 
 	Bus<BusX<x>> bus;
 	auto zz = bus.read(x);
 	bus.write(x, zz);
+
+	Bus<BusX<0>> ram;
+
+	ram.value = domahony::emu::ROM("");
 }
 
 AddressSpace::~AddressSpace() {
