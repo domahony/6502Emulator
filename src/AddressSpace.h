@@ -35,8 +35,6 @@ private:
 	Bus<ANTIC> antic;
 	Bus<ROM> os;
 
-	std::vector<Bus<BusX<T>>> buses;
-
 	template<class T> Bus<T> get_bus(unsigned short);
 	template<class T> Bus<T> get_bus(unsigned short) const;
 };
