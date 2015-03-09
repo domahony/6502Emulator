@@ -49,18 +49,8 @@ struct BusX
 			0)))))))
 	};
 
-	enum{D = (N > 0xD800 ? 0xD800 :
-			(N > 0xD400 ? 0xD400 :
-			(N > 0xD300 ? 0xD300 :
-			(N > 0xD200 ? 0xD200 :
-			(N > 0xD000 ? 0xD000 :
-			(N > 0xA000 ? 0xA000 :
-			(N > 0x8000 ? 0x8000 :
-			0)))))))
-	};
-
+	enum {OFFSET = offsets[D]};
 	typedef typename select<D>::result value_type;
-	unsigned short offset = offsets[D];
 
 };
 
@@ -77,7 +67,7 @@ public:
 	}
 
 private:
-	unsigned short offset = T::offset;
+	unsigned short offset = T::OFFSET;
 	typename T::value_type value;
 };
 
