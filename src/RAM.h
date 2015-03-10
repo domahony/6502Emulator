@@ -8,13 +8,12 @@
 #ifndef RAM_H_
 #define RAM_H_
 
-#include "Bus.h"
 #include <vector>
 
 namespace domahony {
 namespace emu {
 
-class RAM : public Bus {
+class RAM {
 public:
 	RAM(int size) : ram() {
 		ram.resize(size);

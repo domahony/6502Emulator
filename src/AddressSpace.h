@@ -10,7 +10,12 @@
 
 #include <memory>
 #include <vector>
-#include "Bus.h"
+#include "RAM.h"
+#include "ROM.h"
+#include "GTIA.h"
+#include "Pokey.h"
+#include "PIA.h"
+#include "ANTIC.h"
 
 namespace domahony {
 namespace emu {
@@ -26,17 +31,14 @@ public:
 	virtual ~AddressSpace();
 
 private:
-	Bus<RAM> ram;
-	Bus<ROM> cartridgeB;
-	Bus<ROM> cartridgeA;
-	Bus<GTIA> gtia;
-	Bus<Pokey> pokey;
-	Bus<PIA> pia;
-	Bus<ANTIC> antic;
-	Bus<ROM> os;
-
-	template<class T> Bus<T> get_bus(unsigned short);
-	template<class T> Bus<T> get_bus(unsigned short) const;
+	std::shared_ptr<RAM> ram;
+	std::shared_ptr<ROM> cartridgeB;
+	std::shared_ptr<ROM> cartridgeA;
+	std::shared_ptr<GTIA> gtia;
+	std::shared_ptr<Pokey> pokey;
+	std::shared_ptr<PIA> pia;
+	std::shared_ptr<ANTIC> antic;
+	std::shared_ptr<ROM> os;
 };
 
 } /* namespace emu */

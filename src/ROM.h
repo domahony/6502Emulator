@@ -8,7 +8,6 @@
 #ifndef ROM_H_
 #define ROM_H_
 
-#include "Bus.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -19,7 +18,7 @@ namespace emu {
 using std::string;
 using std::vector;
 
-class ROM : public Bus {
+class ROM {
 public:
 	ROM(const string&);
 	virtual ~ROM();
