@@ -14,7 +14,10 @@
 namespace domahony {
 namespace emu {
 
-AddressSpace::AddressSpace()
+AddressSpace::AddressSpace() :
+		os(new ROM("/home/domahony/Projects/atariROMs/ATARIOSB.ROM")),
+		cartridgeA(new ROM("/home/domahony/Projects/atariROMs/REVA.ROM")),
+		ram(new RAM(0x2000))
 {
 
 }
