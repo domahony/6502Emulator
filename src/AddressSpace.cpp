@@ -17,7 +17,7 @@ namespace emu {
 AddressSpace::AddressSpace() :
 		os(new ROM("/home/domahony/Projects/atariROMs/ATARIOSB.ROM")),
 		cartridgeA(new ROM("/home/domahony/Projects/atariROMs/REVA.ROM")),
-		ram(new RAM(0x2000))
+		ram(new RAM(0xA000))
 {
 
 }
