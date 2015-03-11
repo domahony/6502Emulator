@@ -15,6 +15,15 @@ class GTIA {
 public:
 	GTIA();
 	virtual ~GTIA();
+
+	unsigned char read(unsigned short addr) const {
+
+	}
+
+	void write(unsigned short addr, unsigned char val) {
+
+	}
+
 };
 
 } /* namespace emu */

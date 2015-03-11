@@ -15,8 +15,15 @@ class Pokey {
 public:
 	Pokey();
 	virtual ~Pokey();
-};
 
+	unsigned char read(unsigned short addr) const {
+
+	}
+	void write(unsigned short addr, unsigned char val) {
+
+	}
+
+};
 } /* namespace emu */
 } /* namespace domahony */
 

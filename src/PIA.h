@@ -15,6 +15,15 @@ class PIA {
 public:
 	PIA();
 	virtual ~PIA();
+
+	unsigned char read(unsigned short addr) const {
+
+	}
+
+	void write(unsigned short addr, unsigned char val) {
+
+	}
+
 };
 
 } /* namespace emu */

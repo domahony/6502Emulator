@@ -15,6 +15,15 @@ class ANTIC {
 public:
 	ANTIC();
 	virtual ~ANTIC();
+
+	unsigned char read(unsigned short addr) const {
+
+	}
+
+	void write(unsigned short addr, unsigned char val) {
+
+	}
+
 };
 
 } /* namespace emu */

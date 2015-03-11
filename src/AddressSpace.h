@@ -20,6 +20,7 @@
 namespace domahony {
 namespace emu {
 
+
 class AddressSpace {
 
 public:
@@ -28,9 +29,23 @@ public:
 	unsigned char read(unsigned short) const;
 	void write(unsigned short, unsigned char);
 
+	unsigned char read2(unsigned short addr) const {
+
+		if (addr > 0xD800) {
+			return readX<ROM>(addr - 0xD800, os);
+		}
+
+		return 0;
+	}
+
 	virtual ~AddressSpace();
 
 private:
+
+	template<typename T> unsigned char readX(unsigned short addr, std::shared_ptr<T> t) const {
+		return t->read(addr);
+	}
+
 	std::shared_ptr<RAM> ram;
 	std::shared_ptr<ROM> cartridgeB;
 	std::shared_ptr<ROM> cartridgeA;
