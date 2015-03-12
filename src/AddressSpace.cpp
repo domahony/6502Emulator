@@ -48,8 +48,6 @@ AddressSpace::~AddressSpace() {
 
 unsigned char AddressSpace::read(const unsigned short addr) const {
 
-	auto val = read_address<AddrTraits<addr>::D>(addr - AddrTraits<addr>::OFFSET);
-
 	if (addr > 0xD800) {
 		return os->read(addr - 0xD800);
 	} else if (addr > 0xD400) {
