@@ -20,13 +20,16 @@
 namespace domahony {
 namespace emu {
 
+namespace v2 {
+	template<unsigned char N> class AddressSelector;
+};
 
 class AddressSpace {
 
 public:
 	AddressSpace();
 
-	unsigned char read(unsigned short) const;
+	unsigned char read(const unsigned short) const;
 	void write(unsigned short, unsigned char);
 
 	unsigned char read2(unsigned short addr) const {
@@ -39,6 +42,9 @@ public:
 	}
 
 	virtual ~AddressSpace();
+
+template<unsigned char N>
+unsigned char read_address(unsigned char addr);
 
 private:
 
@@ -54,7 +60,20 @@ private:
 	std::shared_ptr<PIA> pia;
 	std::shared_ptr<ANTIC> antic;
 	std::shared_ptr<ROM> os;
+
+	template<unsigned char N> friend class domahony::emu::v2::AddressSelector;
+
 };
+
+template<> unsigned char AddressSpace::read_address<0>(unsigned char);
+template<> unsigned char AddressSpace::read_address<1>(unsigned char);
+template<> unsigned char AddressSpace::read_address<2>(unsigned char);
+template<> unsigned char AddressSpace::read_address<3>(unsigned char);
+template<> unsigned char AddressSpace::read_address<4>(unsigned char);
+template<> unsigned char AddressSpace::read_address<5>(unsigned char);
+template<> unsigned char AddressSpace::read_address<6>(unsigned char);
+template<> unsigned char AddressSpace::read_address<7>(unsigned char);
+
 
 } /* namespace emu */
 } /* namespace domahony */
