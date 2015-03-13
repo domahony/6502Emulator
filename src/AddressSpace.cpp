@@ -9,37 +9,18 @@
 #include "AddressSpace.h"
 #include "ROM.h"
 #include "RAM.h"
-#include <AddressSpace.h>
 
 namespace domahony {
 namespace emu {
 
-template<unsigned char N> struct AddrTraits {
-    enum{D =
-    		(N > 0xD800 ? 7 :
-    		(N > 0xD700 ? 6 :
-    		(N > 0xD600 ? 5 :
-    		(N > 0xD500 ? 4 :
-    		0))))
-    };
-
-     enum{OFFSET =
-    		(N > 0xD800 ? 0xD800 :
-    		(N > 0xD700 ? 0xD700 :
-    		(N > 0xD600 ? 0xD600 :
-    		(N > 0xD500 ? 0xD500 :
-    		0))))
-    };
-};
-
 AddressSpace::AddressSpace() :
-		os(new ROM("/home/domahony/Projects/atariROMs/ATARIOSB.ROM")),
+		//os(new ROM("/home/domahony/Projects/atariROMs/ATARIOSB.ROM")),
+		os(new ROM("/home/domahony/Projects/atariROMs/new/REVBNTSC.ROM")),
 		cartridgeA(new ROM("/home/domahony/Projects/atariROMs/REVA.ROM")),
 		ram(new RAM(0xA000))
 {
 
-	const unsigned short addr = 50;
-	auto val = read_address<AddrTraits<addr>::D>(addr - AddrTraits<addr>::OFFSET);
+
 }
 
 AddressSpace::~AddressSpace() {
@@ -61,7 +42,13 @@ unsigned char AddressSpace::read(const unsigned short addr) const {
 	} else if (addr > 0xA000) {
 		return cartridgeA->read(addr - 0xA000);
 	} else if (addr > 0x8000) {
+
+		if (!cartridgeB) {
+			return 0;
+		}
+
 		return cartridgeB->read(addr - 0x8000);
+
 	} else {
 		return ram->read(addr);
 	}
@@ -82,24 +69,16 @@ void AddressSpace::write(unsigned short addr, unsigned char val) {
 	} else if (addr > 0xA000) {
 		cartridgeA->write(addr - 0xA000, val);
 	} else if (addr > 0x8000) {
+
+		if (!cartridgeB) {
+			return;
+		}
+
 		cartridgeB->write(addr - 0x8000, val);
+
 	} else {
 		ram->write(addr, val);
 	}
-}
-
-template<>
-unsigned char AddressSpace::
-read_address<0>(unsigned char addr)
-{
-	return ram->read(addr);
-}
-
-template<>
-unsigned char AddressSpace::
-read_address<1>(unsigned char addr)
-{
-	return cartridgeB->read(addr);
 }
 
 } /* namespace emu */
