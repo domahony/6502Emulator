@@ -19,8 +19,6 @@ using domahony::emu::AddressSpace;
 
 int main(void) {
 
-	//CPU cpu(std::shared_ptr<ROM>(new ROM("/home/domahony/Projects/atariROMs/ATARIOSB.ROM")));
-
 	AddressSpace address_space;
 	CPU cpu(address_space);
 

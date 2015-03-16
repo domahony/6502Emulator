@@ -14,7 +14,6 @@ namespace domahony {
 namespace emu {
 
 AddressSpace::AddressSpace() :
-		//os(new ROM("/home/domahony/Projects/atariROMs/ATARIOSB.ROM")),
 		os(new ROM("/home/domahony/Projects/atariROMs/new/REVBNTSC.ROM")),
 		cartridgeA(new ROM("/home/domahony/Projects/atariROMs/REVA.ROM")),
 		ram(new RAM(0xA000))
@@ -29,19 +28,19 @@ AddressSpace::~AddressSpace() {
 
 unsigned char AddressSpace::read(const unsigned short addr) const {
 
-	if (addr > 0xD800) {
+	if (addr >= 0xD800) {
 		return os->read(addr - 0xD800);
-	} else if (addr > 0xD400) {
+	} else if (addr >= 0xD400) {
 		return antic->read(addr - 0xD400);
-	} else if (addr > 0xD300) {
+	} else if (addr >= 0xD300) {
 		return pia->read(addr - 0xD300);
-	} else if (addr > 0xD200) {
+	} else if (addr >= 0xD200) {
 		return pokey->read(addr - 0xD200);
-	} else if (addr > 0xD000) {
+	} else if (addr >= 0xD000) {
 		return gtia->read(addr - 0xD000);
-	} else if (addr > 0xA000) {
+	} else if (addr >= 0xA000) {
 		return cartridgeA->read(addr - 0xA000);
-	} else if (addr > 0x8000) {
+	} else if (addr >= 0x8000) {
 
 		if (!cartridgeB) {
 			return 0;
@@ -56,19 +55,19 @@ unsigned char AddressSpace::read(const unsigned short addr) const {
 
 void AddressSpace::write(unsigned short addr, unsigned char val) {
 
-	if (addr > 0xD800) {
+	if (addr >= 0xD800) {
 		os->write(addr - 0xD800, val);
-	} else if (addr > 0xD400) {
+	} else if (addr >= 0xD400) {
 		antic->write(addr - 0xD400, val);
-	} else if (addr > 0xD300) {
+	} else if (addr >= 0xD300) {
 		pia->write(addr - 0xD300, val);
-	} else if (addr > 0xD200) {
+	} else if (addr >= 0xD200) {
 		pokey->write(addr - 0xD200, val);
-	} else if (addr > 0xD000) {
+	} else if (addr >= 0xD000) {
 		gtia->write(addr - 0xD000, val);
-	} else if (addr > 0xA000) {
+	} else if (addr >= 0xA000) {
 		cartridgeA->write(addr - 0xA000, val);
-	} else if (addr > 0x8000) {
+	} else if (addr >= 0x8000) {
 
 		if (!cartridgeB) {
 			return;

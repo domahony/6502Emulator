@@ -438,7 +438,7 @@ BNE(T& addr)
 template void CPU::BNE<Relative>(Relative&);
 
 template <typename T> void CPU::
-BPL(T addr)
+BPL(T& addr)
 {
 	cout << hex << pc << " BPL " << addr << endl;
 	if (!N) {
@@ -447,7 +447,7 @@ BPL(T addr)
 	}
 }
 
-template void CPU::BPL<Relative>(Relative);
+template void CPU::BPL<Relative>(Relative&);
 
 void CPU::
 BRK()
@@ -539,7 +539,7 @@ template void CPU::CMP<Address>(Address);
 template <typename T> void CPU::
 CPX(T addr)
 {
-	cout << hex << pc << " CMP " << addr << endl;
+	cout << hex << pc << " CPX " << addr << endl;
 	unsigned char arg = addr.read(*this);
 	unsigned char t = x - arg;
 

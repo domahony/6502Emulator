@@ -63,7 +63,7 @@ public:
 	template <typename T> void BIT(T addr);
 	template <typename T> void BMI(T addr);
 	template <typename T> void BNE(T& addr);
-	template <typename T> void BPL(T addr);
+	template <typename T> void BPL(T& addr);
 	void BRK();
 	template <typename T> void BVC(T addr);
 	template <typename T> void BVS(T addr);
@@ -150,6 +150,15 @@ public:
 	}
 
 	Address(unsigned char low, unsigned char high, char offset) : Address(low, high)
+	{
+		unsigned short ah1 = addr >> 8;
+		addr += offset;
+		unsigned short ah2 = addr >> 8;
+
+		boundary = ah1 != ah2;
+	}
+
+	Address(unsigned char low, unsigned char high, unsigned char offset) : Address(low, high)
 	{
 		unsigned short ah1 = addr >> 8;
 		addr += offset;
