@@ -146,7 +146,13 @@ void CPU::
 run() {
 
 	while (true) {
+
+		cout << ">>" << hex << static_cast<unsigned int>(pc) << " ";
+
 		unsigned char op = read(pc++);
+
+		cout << hex << static_cast<unsigned int>(op) << endl;
+
 		int tick = 0;
 		fn[op](*this);
 	}
