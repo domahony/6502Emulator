@@ -2658,9 +2658,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -3686,9 +3686,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -4714,9 +4714,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -5742,9 +5742,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -6770,9 +6770,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -7798,9 +7798,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -8826,9 +8826,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -9854,9 +9854,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -10882,9 +10882,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -11910,9 +11910,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -12938,9 +12938,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -13966,9 +13966,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -14994,9 +14994,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -16022,9 +16022,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -17050,9 +17050,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -18078,9 +18078,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -19106,9 +19106,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -20134,9 +20134,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -21162,9 +21162,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -22190,9 +22190,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -23218,9 +23218,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -24246,9 +24246,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -25274,9 +25274,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -26302,9 +26302,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -27330,9 +27330,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -28358,9 +28358,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -29386,9 +29386,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -30414,9 +30414,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -31442,9 +31442,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -32470,9 +32470,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -33498,9 +33498,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -34526,9 +34526,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -35554,9 +35554,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -36582,9 +36582,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -37610,9 +37610,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -38638,9 +38638,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -39666,9 +39666,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -40694,9 +40694,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -41722,9 +41722,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -42750,9 +42750,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -43778,9 +43778,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -44806,9 +44806,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -45834,9 +45834,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -46862,9 +46862,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -47890,9 +47890,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -48918,9 +48918,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -49946,9 +49946,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -50974,9 +50974,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -52002,9 +52002,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -53030,9 +53030,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -54058,9 +54058,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -55086,9 +55086,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -56114,9 +56114,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -57142,9 +57142,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -58170,9 +58170,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -59198,9 +59198,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -60226,9 +60226,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -61254,9 +61254,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -62282,9 +62282,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -63310,9 +63310,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -64338,9 +64338,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -65366,9 +65366,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -66394,9 +66394,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -67422,9 +67422,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -68450,9 +68450,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -69478,9 +69478,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -70506,9 +70506,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -71534,9 +71534,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -72562,9 +72562,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -73590,9 +73590,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -74618,9 +74618,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -75646,9 +75646,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -76674,9 +76674,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -77702,9 +77702,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -78730,9 +78730,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -79758,9 +79758,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -80786,9 +80786,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -81814,9 +81814,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -82842,9 +82842,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -83870,9 +83870,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -84898,9 +84898,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -85926,9 +85926,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -86954,9 +86954,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -87982,9 +87982,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -89010,9 +89010,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -90038,9 +90038,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -91066,9 +91066,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -92094,9 +92094,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -93122,9 +93122,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -94150,9 +94150,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -95178,9 +95178,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -96206,9 +96206,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -97234,9 +97234,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -98262,9 +98262,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -99290,9 +99290,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -100318,9 +100318,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -101346,9 +101346,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -102374,9 +102374,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -103402,9 +103402,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -104430,9 +104430,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -105458,9 +105458,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -106486,9 +106486,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -107514,9 +107514,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -108542,9 +108542,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -109570,9 +109570,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -110598,9 +110598,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -111626,9 +111626,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -112654,9 +112654,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -113682,9 +113682,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -114710,9 +114710,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -115738,9 +115738,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -116766,9 +116766,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -117794,9 +117794,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -118822,9 +118822,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -119850,9 +119850,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -120878,9 +120878,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -121906,9 +121906,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -122934,9 +122934,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -123962,9 +123962,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -124990,9 +124990,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -126018,9 +126018,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -127046,9 +127046,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -128074,9 +128074,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -129102,9 +129102,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -130130,9 +130130,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -131158,9 +131158,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -132186,9 +132186,9 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC
+>>f149 a6 << LDX
+>>f14b e4 << CPX
 >>f14d d0 << BNE
 >>f140 91 << STA
 >>f142 c8 << INY
@@ -133214,431 +133214,484 @@
 >>f142 c8 << INY
 >>f143 c0 << CPY
 >>f145 d0 << BNE
->>f147 e6
->>f149 a6
->>f14b e4
+>>f147 e6 << INC RAMLO+1
+>>f149 a6 << LDX RAMLO+1
+>>f14b e4 << CPX
 >>f14d d0 << BNE
->>f14f ad
->>f152 85 << STA
->>f154 ad
->>f157 85 << STA
+>>f14f ad << LDA BLKBDV+1
+>>f152 85 << STA DOSVEC
+>>f154 ad << LDA BLKBDV+2
+>>f157 85 << STA DOSVEC+1
 >>f159 a9 << LDA
->>f15b 8d
+>>f15b 8d << STA
 >>f15e d0 << BNE
->>f173 a9 << LDA
->>f175 85 << STA
->>f177 a9 << LDA
+
+>>f173 a9 << LDA ESTSCM
+>>f175 85 << STA  
+>>f177 a9 << LDA 
 >>f179 85 << STA
->>f17b a2
->>f17d bd
+
+>>f17b a2 << LDX OPSYS
+>>f17d bd << LDA MOVVEC 
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+
+>>f17d bd << LDA MOVVEC
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f17d bd
+>>f183 ca << DEX
+>>f184 10 << BPL
+
+>>f17d bd << LDA
 >>f180 9d << STA
->>f183 ca
->>f184 10
->>f186 20
->>f28a c6
+>>f183 ca << DEX
+>>f184 10 << BPL
+
+>>f186 20 << JSR
+
+>>f28a c6 << DEC OSRAM
 >>f28c a9 << LDA
->>f28e 8d
+>>f28e 8d << STA
 >>f291 a9 << LDA
->>f293 8d
+>>f293 8d << STA
 >>f296 a5 << LDA
->>f298 8d
->>f29b 8d
+>>f298 8d << STA
+>>f29b 8d << STA
 >>f29e a9 << LDA
->>f2a0 8d
+>>f2a0 8d << STA
 >>f2a3 a9 << LDA
->>f2a5 8d
+>>f2a5 8d << STA
 >>f2a8 a9 << LDA
->>f2aa 8d
->>f2ad 20
->>e40c 4c
->>f3e4 a9 << LDA
->>f3e6 8d
->>f3e9 ad
->>f3ec 29
+>>f2aa 8d << STA
+>>f2ad 20 << JSR
+
+>>e40c 4c << JMP EDITRV+$C
+
+>>f3e4 a9 << LDA PWRONA
+>>f3e6 8d << STA 
+>>f3e9 ad << LDA
+>>f3ec 29 << AND
 >>f3ee 85 << STA
 >>f3f0 a9 << LDA
->>f3f2 8d
+>>f3f2 8d << STA
 >>f3f5 60 << RTS
->>f2b0 20
->>e41c 4c
->>f3e4 a9 << LDA
->>f3e6 8d
->>f3e9 ad
->>f3ec 29
+
+>>f2b0 20 << JSR 
+>>e41c 4c << JMP SCRENV+$C
+
+>>f3e4 a9 << LDA PWRONA
+>>f3e6 8d << STA
+>>f3e9 ad << LDA
+>>f3ec 29 << AND
 >>f3ee 85 << STA
 >>f3f0 a9 << LDA
->>f3f2 8d
+>>f3f2 8d << STA
 >>f3f5 60 << RTS
->>f2b3 20
->>e42c 4c
->>f3e4 a9 << LDA
->>f3e6 8d
->>f3e9 ad
->>f3ec 29
+
+>>f2b3 20 << JSR
+>>e42c 4c << JMP KEYBDV+$C
+
+>>f3e4 a9 << LDA PWRONA
+>>f3e6 8d << STA
+>>f3e9 ad << LDA
+>>f3ec 29 << AND
 >>f3ee 85 << STA
 >>f3f0 a9 << LDA
->>f3f2 8d
+>>f3f2 8d << STA
 >>f3f5 60 << RTS
->>f2b6 20
->>e43c 4c
->>ee78 a9 << LDA
+
+>>f2b6 20 << JSR
+>>e43c 4c << JMP PRINTV+$C
+
+>>ee78 a9 << LDA PHINIT
 >>ee7a 85 << STA
 >>ee7c 60 << RTS
->>f2b9 20
->>e44c 4c
->>ef41 a9 << LDA
->>ef43 8d
+
+>>f2b9 20 << JSR
+>>e44c 4c << JMP CASETV+$C
+
+>>ef41 a9 << LDA INIT
+>>ef43 8d << STA 
 >>ef46 a9 << LDA
->>ef48 8d
+>>ef48 8d << STA
 >>ef4b 60 << RTS
->>f2bc 20
->>e46e 4c
->>e4a6 a2
->>e4a8 a9 << LDA
+
+>>f2bc 20 << JSR
+>>e46e 4c << JMP CIOINV
+
+>>e4a6 a2 << LDX CIOINT
+>>e4a8 a9 << LDA CIOI1
 >>e4aa 9d << STA
 >>e4ad a9 << LDA
 >>e4af 9d << STA
 >>e4b2 a9 << LDA
 >>e4b4 9d << STA
->>e4b7 8a
+>>e4b7 8a << TXA
 >>e4b8 18
 >>e4b9 69
 >>e4bb aa << TAX
 >>e4bc c9
 >>e4be 90
->>e4a8 a9 << LDA
+
+>>e4a8 a9 << LDA CIOI1
 >>e4aa 9d << STA
 >>e4ad a9 << LDA
 >>e4af 9d << STA
 >>e4b2 a9 << LDA
 >>e4b4 9d << STA
->>e4b7 8a
+>>e4b7 8a << TXA
 >>e4b8 18
 >>e4b9 69
 >>e4bb aa << TAX
 >>e4bc c9
 >>e4be 90
->>e4a8 a9 << LDA
+
+>>e4a8 a9 << LDA CIOI1
 >>e4aa 9d << STA
 >>e4ad a9 << LDA
 >>e4af 9d << STA
 >>e4b2 a9 << LDA
 >>e4b4 9d << STA
->>e4b7 8a
+>>e4b7 8a << TXA
 >>e4b8 18
 >>e4b9 69
 >>e4bb aa << TAX
 >>e4bc c9
 >>e4be 90
->>e4a8 a9 << LDA
+
+>>e4a8 a9 << LDA CIOI1
 >>e4aa 9d << STA
 >>e4ad a9 << LDA
 >>e4af 9d << STA
 >>e4b2 a9 << LDA
 >>e4b4 9d << STA
->>e4b7 8a
+>>e4b7 8a << TXA
 >>e4b8 18
 >>e4b9 69
 >>e4bb aa << TAX
 >>e4bc c9
 >>e4be 90
->>e4a8 a9 << LDA
+
+>>e4a8 a9 << LDA CIOI1
 >>e4aa 9d << STA
 >>e4ad a9 << LDA
 >>e4af 9d << STA
 >>e4b2 a9 << LDA
 >>e4b4 9d << STA
->>e4b7 8a
+>>e4b7 8a << TXA
 >>e4b8 18
 >>e4b9 69
 >>e4bb aa << TAX
 >>e4bc c9
 >>e4be 90
->>e4a8 a9 << LDA
+
+>>e4a8 a9 << LDA CIOI1
 >>e4aa 9d << STA
 >>e4ad a9 << LDA
 >>e4af 9d << STA
 >>e4b2 a9 << LDA
 >>e4b4 9d << STA
->>e4b7 8a
+>>e4b7 8a << TXA
 >>e4b8 18
 >>e4b9 69
 >>e4bb aa << TAX
 >>e4bc c9
 >>e4be 90
->>e4a8 a9 << LDA
+
+>>e4a8 a9 << LDA CIOI1
 >>e4aa 9d << STA
 >>e4ad a9 << LDA
 >>e4af 9d << STA
 >>e4b2 a9 << LDA
 >>e4b4 9d << STA
->>e4b7 8a
+>>e4b7 8a << TXA
 >>e4b8 18
 >>e4b9 69
 >>e4bb aa << TAX
 >>e4bc c9
 >>e4be 90
->>e4a8 a9 << LDA
+
+>>e4a8 a9 << LDA CIOI1
 >>e4aa 9d << STA
 >>e4ad a9 << LDA
 >>e4af 9d << STA
 >>e4b2 a9 << LDA
 >>e4b4 9d << STA
->>e4b7 8a
+>>e4b7 8a << TXA
 >>e4b8 18
 >>e4b9 69
 >>e4bb aa << TAX
 >>e4bc c9
 >>e4be 90
 >>e4c0 60 << RTS
->>f2bf 20
->>e465 4c
->>e944 a9 << LDA
->>e946 8d
+
+>>f2bf 20 << JSR
+>>e465 4c << JMP SIOINV
+
+>>e944 a9 << LDA SIOINT
+>>e946 8d << STA
 >>e949 a9 << LDA
->>e94b 8d
+>>e94b 8d << STA
 >>e94e a9 << LDA
->>e950 8d
+>>e950 8d << STA
 >>e953 85 << STA
->>e955 8d
+>>e955 8d << STA
 >>e958 60 << RTS
->>f2c2 20
->>e46b 4c
->>e6d5 a9 << LDA
->>e6d7 8d
+
+>>f2c2 20 << JSR
+>>e46b 4c << JMP INTINV
+
+>>e6d5 a9 << LDA IHINIT
+>>e6d7 8d << STA
 >>e6da a9 << LDA
->>e6dc 8d
->>e6df 8d
+>>e6dc 8d << STA
+>>e6df 8d << STA
 >>e6e2 a9 << LDA
->>e6e4 8d
->>e6e7 8d
+>>e6e4 8d << STA
+>>e6e7 8d << STA
 >>e6ea a9 << LDA
->>e6ec 8d
->>e6ef 8d
+>>e6ec 8d << STA
+>>e6ef 8d << STA
 >>e6f2 60 << RTS
->>f2c5 ad
->>f2c8 29
+
+>>f2c5 ad << LDA
+>>f2c8 29 << AND
 >>f2ca d0 << BNE
->>f2ce 60 << RTS
->>f189 58
->>f18a a2
->>f18c bd
+>>f2ce 60 << RTS NOKEY
+
+>>f189 58 << CLI
+>>f18a a2 << LDX
+>>f18c bd << LDA NXTENT
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f18c bd
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f18c bd << LDA
 >>f18f 9d << STA
->>f192 ca
->>f193 10
->>f195 a2
->>f197 86
->>f199 86
->>f19b ae
->>f19e e0
->>f1a0 b0
->>f1a2 ad
+>>f192 ca << DEX
+>>f193 10 << BPL
+
+>>f195 a2 << LDX
+>>f197 86 << STX
+>>f199 86 << STX
+>>f19b ae << LDX
+>>f19e e0 << CPX
+>>f1a0 b0 << BCS
+>>f1a2 ad << LDA
 >>f1a5 d0 << BNE
->>f1a7 e6
->>f1a9 20
->>f23c 6c
+>>f1a7 e6 << INC
+>>f1a9 20 << JSR
+>>f23c 6c << JMP CBINI (jump to CARTAD-$2000) $BFFA-$2000 = $9FFA
 >>0 0
