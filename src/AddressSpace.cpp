@@ -16,7 +16,8 @@ namespace emu {
 AddressSpace::AddressSpace() :
 		os(new ROM("/home/domahony/Projects/atariROMs/new/REVBNTSC.ROM")),
 		cartridgeA(new ROM("/home/domahony/Projects/atariROMs/REVA.ROM")),
-		ram(new RAM(0xA000))
+		ram(new RAM(0xA000)),
+		ramB(new RAM(0x8000))
 {
 
 
@@ -42,11 +43,12 @@ unsigned char AddressSpace::read(const unsigned short addr) const {
 		return cartridgeA->read(addr - 0xA000);
 	} else if (addr >= 0x8000) {
 
-		if (!cartridgeB) {
-			return 0;
+		if (cartridgeB) {
+			return cartridgeB->read(addr - 0x8000);
+		} else {
+			return ramB->read(addr - 0x8000);
 		}
 
-		return cartridgeB->read(addr - 0x8000);
 
 	} else {
 		return ram->read(addr);
@@ -69,11 +71,12 @@ void AddressSpace::write(unsigned short addr, unsigned char val) {
 		cartridgeA->write(addr - 0xA000, val);
 	} else if (addr >= 0x8000) {
 
-		if (!cartridgeB) {
-			return;
+		if (cartridgeB) {
+			cartridgeB->write(addr - 0x8000, val);
+		} else {
+			ramB->write(addr - 0x8000, val);
 		}
 
-		cartridgeB->write(addr - 0x8000, val);
 
 	} else {
 		ram->write(addr, val);

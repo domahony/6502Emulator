@@ -33,6 +33,7 @@ public:
 private:
 
 	std::shared_ptr<RAM> ram;
+	std::shared_ptr<RAM> ramB;
 	std::shared_ptr<ROM> cartridgeB;
 	std::shared_ptr<ROM> cartridgeA;
 	std::shared_ptr<GTIA> gtia;
