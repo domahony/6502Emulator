@@ -166796,7 +166796,7 @@ ZZZZZZZZZ Reviewed To Here
 >>e69a 8a << TXA
 >>e69b a6
 >>e69d 60 << RTS
->>f3fc a5 << LDA
+>>f3fc a5 << LDA //probably EOPEN
 >>f3fe 29 << AND
 >>f400 85 << STA
 >>f402 a9 << LDA
